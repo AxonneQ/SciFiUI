@@ -1,8 +1,8 @@
 # SciFi UI Project
 
-Name:
+Name: **Igor Bolek**
 
-Student Number: 
+Student Number: **C17487376**
 
 Fork this repository and use it a starter project for your assignment
 
