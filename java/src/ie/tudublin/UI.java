@@ -25,7 +25,8 @@ public class UI extends PApplet {
         }
 
         // Initial
-       ArrayList<UIElement> elements = new ArrayList<UIElement>();;
+       ArrayList<UIElement> elements = new ArrayList<UIElement>();
+       
 
         public void settings() {
                 size(1200, 1200, P3D);
@@ -33,8 +34,8 @@ public class UI extends PApplet {
        
         public void setup() {
                 
-                UIElement r = new Radar(this, 1, width/2,height/2, 100);
-                UIElement b = new Button(this, 100,100,100,30,"Test string");
+                elements = UIElementLoader.loadUI(this);
+
 
         }
         // Main loop
@@ -46,5 +47,7 @@ public class UI extends PApplet {
                         e.update();
                         e.render();
                 }
+
+
         }
 }
