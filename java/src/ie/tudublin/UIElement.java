@@ -1,7 +1,5 @@
 package ie.tudublin;
 
-import processing.core.PApplet;
-
 abstract public class UIElement {
         UI ui;
 

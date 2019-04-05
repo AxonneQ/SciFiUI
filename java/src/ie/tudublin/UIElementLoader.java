@@ -3,13 +3,26 @@ package ie.tudublin;
 import java.util.ArrayList;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.io.BufferedReader;
 
-
-
-
-
 public class UIElementLoader {
+
+        static private String checkBOM(String s) throws UnsupportedEncodingException {
+                //Convert string to byte array
+                byte[] lineBytes = s.getBytes();
+
+                //Check if byte array contains Byte Order Mark
+                if ((lineBytes[0] & 0xFF) == 0xEF && (lineBytes[1] & 0xFF) == 0xBB && (lineBytes[2] & 0xFF) == 0xBF) {
+                        //if yes, create new byte array, copy all bytes excluding first 3 and convert back to String
+                        byte[] lineBytesNoBOM = new byte[lineBytes.length - 3];
+                        System.arraycopy(lineBytes, 3, lineBytesNoBOM, 0, lineBytesNoBOM.length);
+                        String temp = new String(lineBytesNoBOM, "ISO-8859-1"); //8-bit ASCII
+                        return temp;
+                } else {
+                        return s;
+                }
+        }
 
         static public ArrayList<UIElement> loadUI(UI ui) {
                 ArrayList<UIElement> elements = new ArrayList<UIElement>();
@@ -27,40 +40,51 @@ public class UIElementLoader {
                         FileReader fileReader = new FileReader(file);
                         BufferedReader fileReaderBuffered = new BufferedReader(fileReader);
 
-                        while((line = fileReaderBuffered.readLine()) != null) {
-                                String[] lineSegments = line.split(delimiter);
+                        while ((line = fileReaderBuffered.readLine()) != null) {
+                                line = checkBOM(line);
 
-                                String shapeDescription = lineSegments[0].trim();
-                              
-                                System.out.println(shapeDescription);
+                                // If line is not a comment...
+                                if (line.charAt(0) != '#') {
+                                        // Split line into multiple entries
+                                        String[] lineSegments = line.split(delimiter);
 
-                                switch(shapeDescription){
+                                        // Cut out all whitespaces
+                                        String shapeDescription = lineSegments[0].trim();
+
+                                        switch (shapeDescription) {
                                         case "RADAR":
-                                        Radar radar = new Radar(ui, Float.parseFloat(lineSegments[1]), Float.parseFloat(lineSegments[2]), Float.parseFloat(lineSegments[3]), Float.parseFloat(lineSegments[4]));
-                                        elements.add(radar);
-                                        System.out.println("Adding shape:" + lineSegments[0]);
-                                        break;
-                                        case "BUTTON":
-                                        break;
+                                                Radar radar = new Radar(ui, Float.parseFloat(lineSegments[1]),
+                                                                Float.parseFloat(lineSegments[2]),
+                                                                Float.parseFloat(lineSegments[3]),
+                                                                Float.parseFloat(lineSegments[4]));
+                                                elements.add(radar);
+                                                System.out.println("Adding shape:" + lineSegments[0]);
+                                                break;
 
+                                        case "BUTTON":
+                                                break;
+
+                                        case "CUSTOM":
+                                                break;
 
                                         default:
-                                        break;
+                                                break;
+                                        }
+                                } else {
+                                        System.out.println(line);
                                 }
 
                         }
 
+                        // Close Readers
                         fileReaderBuffered.close();
                         fileReader.close();
-
-                        
 
                 } catch (IOException e) {
                         System.out.println("Error! File corrupted or does not exist!");
                         e.printStackTrace();
                 }
 
-
                 return elements;
-        }        
+        }
 }
