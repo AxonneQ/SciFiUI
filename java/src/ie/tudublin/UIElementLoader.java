@@ -9,15 +9,16 @@ import java.io.BufferedReader;
 public class UIElementLoader {
 
         static private String checkBOM(String s) throws UnsupportedEncodingException {
-                //Convert string to byte array
+                // Convert string to byte array
                 byte[] lineBytes = s.getBytes();
 
-                //Check if byte array contains Byte Order Mark
+                // Check if byte array contains Byte Order Mark
                 if ((lineBytes[0] & 0xFF) == 0xEF && (lineBytes[1] & 0xFF) == 0xBB && (lineBytes[2] & 0xFF) == 0xBF) {
-                        //if yes, create new byte array, copy all bytes excluding first 3 and convert back to String
+                        // if yes, create new byte array, copy all bytes excluding first 3 and convert
+                        // back to String
                         byte[] lineBytesNoBOM = new byte[lineBytes.length - 3];
                         System.arraycopy(lineBytes, 3, lineBytesNoBOM, 0, lineBytesNoBOM.length);
-                        String temp = new String(lineBytesNoBOM, "ISO-8859-1"); //8-bit ASCII
+                        String temp = new String(lineBytesNoBOM, "ISO-8859-1"); // 8-bit ASCII
                         return temp;
                 } else {
                         return s;
@@ -44,7 +45,7 @@ public class UIElementLoader {
                                 line = checkBOM(line);
 
                                 // If line is not a comment...
-                                if (line.charAt(0) != '#') {
+                                if (!line.startsWith("#") && !line.startsWith("\"#")) {
                                         // Split line into multiple entries
                                         String[] lineSegments = line.split(delimiter);
 
@@ -53,27 +54,30 @@ public class UIElementLoader {
 
                                         switch (shapeDescription) {
                                         case "RADAR":
-                                                Radar radar = new Radar(ui, Float.parseFloat(lineSegments[1]),
+                                                UIElement radar = new Radar(ui, Float.parseFloat(lineSegments[1]),
                                                                 Float.parseFloat(lineSegments[2]),
                                                                 Float.parseFloat(lineSegments[3]),
                                                                 Float.parseFloat(lineSegments[4]));
                                                 elements.add(radar);
-                                                System.out.println("Adding shape:" + lineSegments[0]);
+                                                System.out.println("Adding shape: " + lineSegments[0]);
                                                 break;
 
                                         case "BUTTON":
                                                 break;
 
-                                        case "CUSTOM":
+                                        case "CUSTOM2D":
+                                                break;
+
+                                        case "CUSTOM3D":
+                                                UIElement custom3d = new CustomShape(ui, lineSegments);
+                                                elements.add(custom3d);
+                                                System.out.println("Adding shape: " + lineSegments[0]);
                                                 break;
 
                                         default:
                                                 break;
                                         }
-                                } else {
-                                        System.out.println(line);
                                 }
-
                         }
 
                         // Close Readers

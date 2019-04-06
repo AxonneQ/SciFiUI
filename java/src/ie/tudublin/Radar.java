@@ -11,7 +11,6 @@ public class Radar extends UIElement{
 
         public Radar(UI ui, float frequency, float x, float y, float radius) {
                 super(ui);
-                this.ui = ui;
                 this.frequency = frequency;
                 pos = new PVector(x, y);
                 this.radius = radius;

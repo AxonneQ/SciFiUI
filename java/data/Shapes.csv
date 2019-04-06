@@ -1,3 +1,4 @@
-﻿#Shape List:
+﻿# Shape List:,,,,
+"# Fields for custom shapes contain number of vertices, and vertex position in the form of (X:Y:Z) for CUSTOM3D or (X:Y) for CUSTOM2D relative to center of screen",,,,
 RADAR,1,200,200,100
-CUSTOM,,,,
+CUSTOM3D,4,-200:200:0,-175:175:-400,175:175:-400,200:200:0
