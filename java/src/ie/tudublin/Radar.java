@@ -3,7 +3,7 @@ package ie.tudublin;
 import processing.core.PApplet;
 import processing.core.PVector;
 
-public class Radar extends UIElement{
+public class Radar extends UIElement {
         private float radius;
         private PVector pos;
         private float frequency;

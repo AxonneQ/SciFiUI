@@ -52,12 +52,11 @@ public class CustomShape extends UIElement {
         private void makeShape() {
                 Color stroke = new Color(rawData[1]);
                 Color fill = new Color(rawData[2]);
-                
 
                 s = new PShape();
                 s = ui.createShape();
                 s.beginShape();
-                s.stroke(stroke.r,stroke.g, stroke.b, stroke.a);
+                s.stroke(stroke.r, stroke.g, stroke.b, stroke.a);
                 s.fill(fill.r, fill.g, fill.b, fill.a);
                 for (PVector v : vertices) {
                         s.vertex(v.x, v.y, v.z);

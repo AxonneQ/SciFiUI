@@ -49,24 +49,23 @@ public class UI extends PApplet {
 
         public void setup() {
 
-                //Load all shapes from csv file
+                // Load all shapes from csv file
                 elements = UIElementLoader.loadUI(this);
 
-                //Fix alpha transparency for 3D objects
+                // Fix alpha transparency for 3D objects
                 hint(DISABLE_DEPTH_TEST);
 
         }
 
         // Main loop
         public void draw() {
-                //Move camera using mouse
-                cam.moveEye(mouseX,mouseY,mouseWheelState);
-                //Clear canvas
+                // Move camera using mouse
+                cam.moveEye(mouseX, mouseY, mouseWheelState);
+                // Clear canvas
                 background(0);
 
                 stroke(255);
                 lights();
-
 
                 for (UIElement e : elements) {
                         e.update();
