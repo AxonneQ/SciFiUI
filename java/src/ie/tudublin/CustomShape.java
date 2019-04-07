@@ -21,10 +21,10 @@ public class CustomShape extends UIElement {
         private void createVertices() {
                 // 3D shape
                 if (rawData[0].contains("CUSTOM3D")) {
-                        int totalVerts = Integer.parseInt(rawData[1]);
+                        int totalVerts = Integer.parseInt(rawData[3]);
                         for (int i = 0; i < totalVerts; i++) {
                                 String delimiter = ":";
-                                String[] rawPosition = rawData[i + 2].split(delimiter);
+                                String[] rawPosition = rawData[i + 4].split(delimiter);
 
                                 Float x = Float.parseFloat(rawPosition[0]) + (ui.width / 2);
                                 Float y = Float.parseFloat(rawPosition[1]) + (ui.height / 2);

@@ -44,8 +44,8 @@ public class UIElementLoader {
                         while ((line = fileReaderBuffered.readLine()) != null) {
                                 line = checkBOM(line);
 
-                                // If line is not a comment...
-                                if (!line.startsWith("#") && !line.startsWith("\"#")) {
+                                // If line is not a comment or is not empty...
+                                if (!line.startsWith("#") && !line.startsWith("\"#") && !line.startsWith(",")) {
                                         // Split line into multiple entries
                                         String[] lineSegments = line.split(delimiter);
 
@@ -72,6 +72,8 @@ public class UIElementLoader {
                                                 UIElement custom3d = new CustomShape(ui, lineSegments);
                                                 elements.add(custom3d);
                                                 System.out.println("Adding shape: " + lineSegments[0]);
+                                                break;
+                                        case "":
                                                 break;
 
                                         default:
