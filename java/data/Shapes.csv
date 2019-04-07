@@ -1,11 +1,11 @@
-﻿# Shape List:,,,,,,,
-"# Fields for custom shapes contain number of vertices, and vertex position in the form of (X:Y:Z) for CUSTOM3D or (X:Y) for CUSTOM2D relative to center of screen",,,,,,,
-"# Custom Args: [Stroke Color], [Fill Color], [No. of Verts N], [Vert1] [Vert2] …. [VertN]",,,,,,,
-CUSTOM3D,000 255 000,#AAAAAA00,4,-500:250:100,-500:250:-500,500:250:-500,500:250:100
-CUSTOM3D,#007ACCFF,#007ACC00,4,-200:200:0,-200:200:-400,200:200:-400,200:200:0
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-RADAR,1,200,200,100,,,
+﻿# Shape List:,,,,,,,,,,,,,,
+"# Fields for custom shapes contain number of vertices, and vertex position in the form of (X:Y:Z) for CUSTOM3D or (X:Y) for CUSTOM2D relative to center of screen",,,,,,,,,,,,,,
+"# Custom Args: [Stroke Color], [Fill Color], [No. of Verts N], [Vert1] [Vert2] …. [VertN] [Optional: Contour,etc]",,,,,,,,,,,,,,
+CUSTOM3D,#AAAAAAFF,#AAAAAAFF,,4,-500:250:100,-500:250:-500,500:250:-500,500:250:100,,,,,,
+CUSTOM3D,#007ACCFF,#007ACCFF,QUADS,4,-200:250:-400,200:250:-400,200:250:0,-200:250:0,,,,,,
+CUSTOM3D,#007ACCFF,#007ACCFF,,4,-200:200:0,-200:200:-400,200:200:-400,200:200:0,CONTOUR,4,100:200:-300,100:200:-100,-100:200:-100,-100:200:-300
+CUSTOM3D,#007ACCFF,#007ACCFF,,4,-200:200:0,200:200:0,200:250:0,-200:250:0,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+RADAR,1,200,200,100,,,,,,,,,,
