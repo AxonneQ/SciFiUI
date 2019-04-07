@@ -31,8 +31,8 @@ public class Color {
                         } else {
                                 a = 255;
                         }
+                        
                 } else if (rawColor.matches(rgbaPattern) || rawColor.matches(rgbPattern)) {
-
                         r = Integer.parseInt(rawColor.substring(0, 3));
                         g = Integer.parseInt(rawColor.substring(4, 7));
                         b = Integer.parseInt(rawColor.substring(8, 11));
@@ -46,6 +46,19 @@ public class Color {
                 } else {
                         throw new IncorrectColorException();
                 }
+                checkRange();
+        }
+
+        private void checkRange() {
+                if(r > 255) r = 255;
+                if(g > 255) g = 255;
+                if(b > 255) b = 255;
+                if (a > 255) a = 255;
+                
+                if(r < 0) r = 0;
+                if(g < 0) g = 0;
+                if(b < 0) b = 0;
+                if(a < 0) a = 0;
         }
 
         public class IncorrectColorException extends Exception {
