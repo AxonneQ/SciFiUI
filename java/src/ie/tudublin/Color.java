@@ -37,6 +37,9 @@ public class Color {
                 } /*else if (){
                         //Implement RGB format
                 }*/
+                else {
+                        throw new IncorrectColorException();
+                }
                         
 
 
@@ -45,6 +48,10 @@ public class Color {
         public class IncorrectColorException extends Exception {
                 IncorrectColorException(String error) {
                        super(error);
+                }
+
+                IncorrectColorException() {
+                        
                 }
         }
 }
