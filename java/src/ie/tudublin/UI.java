@@ -44,11 +44,16 @@ public class UI extends PApplet {
                 size(1200, 1200, P3D);
                 // fullScreen();
                 smooth(8);
+
         }
 
         public void setup() {
 
+                //Load all shapes from csv file
                 elements = UIElementLoader.loadUI(this);
+
+                //Fix alpha transparency for 3D objects
+                hint(DISABLE_DEPTH_TEST);
 
         }
 
@@ -65,6 +70,7 @@ public class UI extends PApplet {
 
                 for (UIElement e : elements) {
                         e.update();
+
                         e.render();
                 }
 

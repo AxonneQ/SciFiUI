@@ -24,7 +24,7 @@ public class CustomShape extends UIElement {
                         int totalVerts = Integer.parseInt(rawData[3]);
                         for (int i = 0; i < totalVerts; i++) {
                                 String delimiter = ":";
-                                String[] rawPosition = rawData[i + 4].split(delimiter);
+                                String[] rawPosition = rawData[i + 4].split(delimiter); // offset position of first vertex (e.g. 0 + 4 = 1st vertex column)
 
                                 Float x = Float.parseFloat(rawPosition[0]) + (ui.width / 2);
                                 Float y = Float.parseFloat(rawPosition[1]) + (ui.height / 2);
@@ -50,11 +50,15 @@ public class CustomShape extends UIElement {
         }
 
         private void makeShape() {
+                Color stroke = new Color(rawData[1]);
+                Color fill = new Color(rawData[2]);
+                
+
                 s = new PShape();
                 s = ui.createShape();
                 s.beginShape();
-                s.stroke(255);
-                s.fill(255);
+                s.stroke(stroke.r,stroke.g, stroke.b, stroke.a);
+                s.fill(fill.r, fill.g, fill.b, fill.a);
                 for (PVector v : vertices) {
                         s.vertex(v.x, v.y, v.z);
                 }
@@ -66,7 +70,7 @@ public class CustomShape extends UIElement {
         }
 
         public void render() {
-               s.draw(ui.g);     
+                s.draw(ui.g);
         }
 
 }

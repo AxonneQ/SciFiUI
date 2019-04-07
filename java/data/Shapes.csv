@@ -1,8 +1,8 @@
 ﻿# Shape List:,,,,,,,
 "# Fields for custom shapes contain number of vertices, and vertex position in the form of (X:Y:Z) for CUSTOM3D or (X:Y) for CUSTOM2D relative to center of screen",,,,,,,
 "# Custom Args: [Stroke Color], [Fill Color], [No. of Verts N], [Vert1] [Vert2] …. [VertN]",,,,,,,
-CUSTOM3D,#007ACC,#AAC700,4,-200:200:0,-200:200:-400,200:200:-400,200:200:0
-CUSTOM3D,,,4,-500:250:100,-500:250:-500,500:250:-500,500:250:100
+CUSTOM3D,255 255 255 128,#AAAAAA,4,-500:250:100,-500:250:-500,500:250:-500,500:250:100
+CUSTOM3D,#007ACCFF,#007ACCAA,4,-200:200:0,-200:200:-400,200:200:-400,200:200:0
 ,,,,,,,
 ,,,,,,,
 ,,,,,,,
