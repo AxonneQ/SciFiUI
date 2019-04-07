@@ -61,7 +61,7 @@ public class CustomShape extends UIElement {
                 for (PVector v : vertices) {
                         s.vertex(v.x, v.y, v.z);
                 }
-                s.endShape();
+                s.endShape(CLOSE);
         }
 
         public void update() {
