@@ -42,7 +42,7 @@ public class UI extends PApplet {
 
         public void settings() {
                 size(1200, 1200, P3D);
-                // fullScreen();
+                //fullScreen();
                 smooth(8);
 
         }
