@@ -12,7 +12,8 @@ import processing.event.MouseEvent;
 public class UI extends PApplet {
         // Input:
         boolean[] keys = new boolean[1024];
-        float mouseWheelState;
+        float currentPos;
+        float destinationPos;
 
         public void keyPressed() {
                 keys[keyCode] = true;
@@ -27,12 +28,12 @@ public class UI extends PApplet {
         }
 
         public void mouseWheel(MouseEvent event) {
-                mouseWheelState += event.getCount();
-                if (mouseWheelState > 10) {
-                        mouseWheelState = 10;
+                destinationPos = currentPos + event.getCount() * 5;
+                if (destinationPos > 10) {
+                        destinationPos = 10;
                 }
-                if (mouseWheelState < -10) {
-                        mouseWheelState = -10;
+                if (destinationPos < -10) {
+                        destinationPos = -10;
                 }
         }
 
@@ -42,7 +43,7 @@ public class UI extends PApplet {
 
         public void settings() {
                 size(1200, 1200, P3D);
-                //fullScreen();
+                // fullScreen();
                 smooth(8);
 
         }
@@ -60,11 +61,11 @@ public class UI extends PApplet {
         // Main loop
         public void draw() {
                 // Move camera using mouse
-                cam.moveEye(mouseX, mouseY, mouseWheelState);
+                cam.moveEye(mouseX, mouseY, currentPos = lerp(currentPos, destinationPos, 0.1f));
+
                 // Clear canvas
                 background(0);
 
-                stroke(255);
                 lights();
 
                 for (UIElement e : elements) {
