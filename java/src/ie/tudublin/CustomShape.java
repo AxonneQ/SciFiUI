@@ -76,12 +76,33 @@ public class CustomShape extends UIElement {
 
                 // 2D shape
                 if (rawData[0].contains("CUSTOM2D")) {
-                        int totalVerts = Integer.parseInt(rawData[1]);
+                        int totalVerts = Integer.parseInt(rawData[4]);
                         for (int i = 0; i < totalVerts; i++) {
-                                String[] rawPosition = rawData[i + 2].split(delimiter);
-                                PVector vertex = new PVector(Float.parseFloat(rawPosition[0]) + (ui.width / 2),
-                                                Float.parseFloat(rawPosition[1]) + (ui.height / 2));
+                                String[] rawPosition = rawData[i + 5].split(delimiter); 
+
+                                Float x = Float.parseFloat(rawPosition[0]) + (ui.width / 2);
+                                Float y = Float.parseFloat(rawPosition[1]) + (ui.height / 2);
+
+                                PVector vertex = new PVector(x, y);
+
                                 vertices.add(vertex);
+                        }
+                        if (dataSize > (5 + totalVerts)) {
+                                if (rawData[5 + totalVerts].contains("CONTOUR")) {
+                                        int totalCVerts = Integer.parseInt(rawData[5 + totalVerts+1]);
+                                        int offset = 7+totalVerts;    
+
+                                        for (int i = offset+totalCVerts -1; i >= offset; i--) {
+                                                String[] rawPosition = rawData[i].split(delimiter);
+
+                                                Float x = Float.parseFloat(rawPosition[0]) + (ui.width / 2);
+                                                Float y = Float.parseFloat(rawPosition[1]) + (ui.height / 2);
+
+                                                PVector vertex = new PVector(x, y);
+
+                                                contours.add(vertex);
+                                        }
+                                }
                         }
                 }
         }
@@ -96,13 +117,24 @@ public class CustomShape extends UIElement {
                 s.stroke(stroke.r, stroke.g, stroke.b, stroke.a);
                 s.fill(fill.r, fill.g, fill.b, fill.a);
                 for (PVector v : vertices) {
-                        s.vertex(v.x, v.y, v.z);
+                        if(rawData[0].equals("CUSTOM3D")){
+                                s.vertex(v.x, v.y, v.z);
+                        } 
+                        if(rawData[0].equals("CUSTOM2D")){
+                                s.vertex(v.x,v.y);
+                        }
                 }
                 if (contours.size() > 0) {
                         s.beginContour();
                         for (PVector v : contours) {
-                                s.vertex(v.x, v.y, v.z);
-                        }
+                                if(rawData[0].equals("CUSTOM3D")){
+                                        s.vertex(v.x, v.y, v.z);
+                                }
+                                if(rawData[0].equals("CUSTOM2D")){
+                                        s.vertex(v.x,v.y);
+                                        System.out.println("TEST");
+                                }
+                        }       
                         s.endContour();
                 }
                 s.endShape(CLOSE);

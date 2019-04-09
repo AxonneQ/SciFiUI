@@ -62,10 +62,16 @@ public class UIElementLoader {
                                                 System.out.println("Adding shape: " + lineSegments[0]);
                                                 break;
 
-                                        case "BUTTON":
+                                        case "SPHERE":
+                                                UIElement sphere = new Sphere(ui, lineSegments);
+                                                elements.add(sphere);
+                                                System.out.println("Adding shape: "+ lineSegments[0]);
                                                 break;
 
                                         case "CUSTOM2D":
+                                                UIElement custom2d = new CustomShape(ui, lineSegments);
+                                                elements.add(custom2d);
+                                                System.out.println("Adding shape: " + lineSegments[0]);
                                                 break;
 
                                         case "CUSTOM3D":
