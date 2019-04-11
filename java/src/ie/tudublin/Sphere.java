@@ -34,8 +34,8 @@ public class Sphere extends UIElement {
         }
 
         public void render() {
-                ui.stroke(stroke.r, stroke.g, stroke.b, stroke.a);
-                ui.fill(fill.r, fill.g, fill.b, fill.a);
+                //ui.stroke(stroke.r, stroke.g, stroke.b, stroke.a);
+                //ui.fill(fill.r, fill.g, fill.b, fill.a);
 
                 ui.pushMatrix();
                 ui.translate(position.x, position.y, position.z);
