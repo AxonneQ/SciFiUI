@@ -15,6 +15,7 @@ public class UI extends PApplet {
         float currentPos;
         float destinationPos;
         Camera cam = new Camera(this);
+       // Animation animation = new Animation(this);
 
         public void keyPressed() {
                 keys[keyCode] = true;
@@ -51,7 +52,7 @@ public class UI extends PApplet {
        
 
         public void settings() {
-                size(1200, 1200, P3D);
+                size(1000, 1000, P3D);
                 // fullScreen();
                 smooth(8);
 
