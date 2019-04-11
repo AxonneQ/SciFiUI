@@ -13,7 +13,10 @@ public class CustomShape extends UIElement {
         private ArrayList<PVector> contours; // if passed as argument, create a hole in shape.
         private String[] rawData;
         private PShape s;
+        private Color stroke;
+        private Color fill;
 
+        //Static unmutable map:
         static final Map<String, Integer> PConstantsMap = Map.of(
                 //beginShape params:
                 "",20,
@@ -34,6 +37,7 @@ public class CustomShape extends UIElement {
                 contours = new ArrayList<PVector>(0);
                 createVertices();
                 makeShape();
+                UI.custom.add(this);
         }
 
         private void createVertices() {
@@ -108,8 +112,8 @@ public class CustomShape extends UIElement {
         }
 
         private void makeShape() {
-                Color stroke = new Color(rawData[1]);
-                Color fill = new Color(rawData[2]);
+                stroke = new Color(rawData[1]);
+                fill = new Color(rawData[2]);
 
                 s = new PShape();
                 s = ui.createShape();
@@ -138,6 +142,14 @@ public class CustomShape extends UIElement {
                         s.endContour();
                 }
                 s.endShape(CLOSE);
+        }
+
+        public void strokeState(boolean b){
+                if(b == false){
+                        s.setStroke(false);    
+                } else {
+                        s.setStroke(true);
+                }
         }
 
         public void update() {

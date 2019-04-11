@@ -14,6 +14,7 @@ public class UI extends PApplet {
         boolean[] keys = new boolean[1024];
         float currentPos;
         float destinationPos;
+        Camera cam = new Camera(this);
 
         public void keyPressed() {
                 keys[keyCode] = true;
@@ -37,9 +38,17 @@ public class UI extends PApplet {
                 }
         }
 
-        // Initial
-        ArrayList<UIElement> elements = new ArrayList<UIElement>();
-        Camera cam = new Camera(this);
+ 
+        // Storing ALL Elements (Custom, spheres, radars etc..)
+        public static ArrayList<UIElement> elements = new ArrayList<UIElement>();
+
+        // Above array segregated into arrays containing specific shapes.
+        public static ArrayList<CustomShape> custom = new ArrayList<CustomShape>();
+        public static ArrayList<Sphere> spheres = new ArrayList<Sphere>();
+
+
+
+       
 
         public void settings() {
                 size(1200, 1200, P3D);
@@ -54,8 +63,8 @@ public class UI extends PApplet {
                 elements = UIElementLoader.loadUI(this);
 
                 // Fix alpha transparency for 3D objects
-                hint(DISABLE_DEPTH_TEST);
-
+                hint(ENABLE_DEPTH_TEST);
+                hint(ENABLE_DEPTH_SORT); 
         }
 
         // Main loop
@@ -68,9 +77,21 @@ public class UI extends PApplet {
 
                 lights();
 
+                pointLight(51, 102, 126, width/2, height/2+300, -200);
+                if(checkKey('s')) {
+                        for(CustomShape e: custom){
+                                e.strokeState(true);
+                        }
+                } else {
+                        for(CustomShape e: custom){
+                                e.strokeState(false);
+                        }
+                }
+              
+                
                 for (UIElement e : elements) {
+                        
                         e.update();
-
                         e.render();
                 }
 
