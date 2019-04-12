@@ -39,7 +39,7 @@ public class Sphere extends UIElement {
 
                 ui.pushMatrix();
                 ui.translate(position.x, position.y, position.z);
-               // Animation.getAnimation("ROTATE", 0.01f);
+                rotation = Animation.getAnimation("ROTATE", rotation+=0.05);
                 ui.sphere(size);
                 ui.popMatrix();
 

@@ -15,7 +15,7 @@ public class UI extends PApplet {
         float currentPos;
         float destinationPos;
         Camera cam = new Camera(this);
-       // Animation animation = new Animation(this);
+        Animation animation = new Animation(this);
 
         public void keyPressed() {
                 keys[keyCode] = true;

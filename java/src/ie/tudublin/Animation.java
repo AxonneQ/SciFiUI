@@ -1,4 +1,4 @@
-/*package ie.tudublin;
+package ie.tudublin;
 
 import java.util.Map;
 
@@ -12,25 +12,24 @@ public class Animation{
 		"ROTATE", 1
 	);
 
-	/*public static <T> T getAnimation(String aniName, float ... vars){
+	public static <Any> Any getAnimation(String aniName, float ... vars){
 		int aniNumber = animations.get(aniName);
 		
 
 		switch(aniNumber){
 			case 1:
-			float ret = rotate(vars);
-			//return (T) ret;
-			break;
+			rotate(vars);
+			
 
-
+                        default:
+                        Integer err = -1;
+                        return  (Any) err;
 		}
 	}
 
-	static private float rotate(float[] angle){
+	static private void rotate(float[] angle){
 
-		ui.rotateY(angle[0]+=0.01);
-		return angle[0];
-
+		ui.rotateY(angle[0]);
 	}
 
-}*/
+}
