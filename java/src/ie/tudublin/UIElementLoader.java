@@ -68,6 +68,12 @@ public class UIElementLoader {
                                                 System.out.println("Adding shape: "+ lineSegments[0]);
                                                 break;
 
+                                        case "CONE":
+                                                UIElement cone = new Cone(ui, lineSegments);
+                                                elements.add(cone);
+                                                System.out.println("Adding shape: "+ lineSegments[0]);
+                                                break;
+
                                         case "CUSTOM2D":
                                                 UIElement custom2d = new CustomShape(ui, lineSegments);
                                                 elements.add(custom2d);

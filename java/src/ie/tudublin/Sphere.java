@@ -35,15 +35,18 @@ public class Sphere extends UIElement {
 
         public void render() {
                 ui.stroke(stroke.r, stroke.g, stroke.b, stroke.a);
-                ui.fill(fill.r, fill.g, fill.b, fill.a);
+                ui.fill(fill.r, fill.g, fill.b, fill.a);                
                 
-                ui.hint(ui.DISABLE_DEPTH_TEST);
                 ui.pushMatrix();
+                ui.hint(ui.DISABLE_DEPTH_SORT);   
                 ui.translate(position.x, position.y, position.z);
-                Animation.getAnimation("ROTATE", rotation+=0.01);
+                if(rawData.length > 5){
+                        Animation.getAnimation("ROTATE", rotation+=0.01);
+                }
+                
                 ui.sphere(size);
                 ui.popMatrix();
-                ui.hint(ui.ENABLE_DEPTH_TEST);
+                
                 
 
         }
