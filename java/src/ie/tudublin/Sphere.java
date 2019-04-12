@@ -1,6 +1,7 @@
 package ie.tudublin;
 
 import processing.core.PVector;
+import ie.tudublin.exceptions.*;
 import processing.core.PShape;
 
 public class Sphere extends UIElement {
@@ -55,7 +56,11 @@ public class Sphere extends UIElement {
                 ui.hint(ui.DISABLE_DEPTH_SORT);   
                 ui.translate(position.x, position.y, position.z);
                 if(!animationType.isBlank()){
-                        Animation.getAnimation(animationType, animationVars);
+                        try{
+                                Animation.getAnimation(animationType, animationVars);
+                        } catch (NoSuchAnimationException e){
+                                System.out.println(e);
+                        }
                 }
                 ui.sphere(size);
                 ui.popMatrix();

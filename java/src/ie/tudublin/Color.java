@@ -1,6 +1,6 @@
 package ie.tudublin;
 
-import java.lang.Exception;
+import ie.tudublin.exceptions.*;
 
 public class Color {
         public int r;
@@ -59,15 +59,5 @@ public class Color {
                 if(g < 0) g = 0;
                 if(b < 0) b = 0;
                 if(a < 0) a = 0;
-        }
-
-        public class IncorrectColorException extends Exception {
-                IncorrectColorException(String error) {
-                        super(error);
-                }
-
-                IncorrectColorException() {
-
-                }
         }
 }

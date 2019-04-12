@@ -87,7 +87,7 @@ public class UI extends PApplet {
                 point(0, 0);
                 lights();
 
-                pointLight(255, 255, 255, width / 2, height / 2 + 250, -190);
+                //pointLight(255, 255, 255, width / 2, height / 2 + 250, -190);
                 if (checkKey('s')) {
                         for (CustomShape e : custom) {
                                 e.strokeState(true);
