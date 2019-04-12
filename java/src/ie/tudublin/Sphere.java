@@ -9,7 +9,9 @@ public class Sphere extends UIElement {
         private PVector position;
         private Color stroke;
         private Color fill;
-        private float rotation;
+
+        private String animationType;
+        private float[] animationVars;
 
         public Sphere(UI ui, String[] rawData) {
                 super(ui);
@@ -26,7 +28,19 @@ public class Sphere extends UIElement {
                                 Float.parseFloat(rawPos[1]) + ui.height / 2, Float.parseFloat(rawPos[2]));
                 stroke = new Color(rawData[1]);
                 fill = new Color(rawData[2]);
+
+                //Load additional Animation arguments
+                if(rawData.length > 5) {
+                        animationType = rawData[5];
+                        int noOfArgs = rawData.length - 6;
+                        animationVars = new float[noOfArgs];
+                        for(int i = 0; i < noOfArgs; i++)
+                        {
+                                animationVars[i] = (Float.parseFloat(rawData[i + 6]));
+                        }
+                }
                 ui.spheres.add(this);
+                
         }
 
         public void update() {
@@ -40,10 +54,9 @@ public class Sphere extends UIElement {
                 ui.pushMatrix();
                 ui.hint(ui.DISABLE_DEPTH_SORT);   
                 ui.translate(position.x, position.y, position.z);
-                if(rawData.length > 5){
-                        Animation.getAnimation("ROTATE", rotation+=0.01);
+                if(!animationType.isBlank()){
+                        Animation.getAnimation(animationType, animationVars);
                 }
-                
                 ui.sphere(size);
                 ui.popMatrix();
                 

@@ -28,8 +28,8 @@ public class Animation{
 	}
 
 	static private void rotate(float[] angle){
-
-		ui.rotateY(angle[0]);
+                
+		ui.rotateY(angle[0]+=angle[1]);
 	}
 
 }
