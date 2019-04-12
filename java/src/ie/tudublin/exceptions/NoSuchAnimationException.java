@@ -1,7 +1,9 @@
 package ie.tudublin.exceptions;
 
 public class NoSuchAnimationException extends Exception{
-        public NoSuchAnimationException(){
+        private static final long serialVersionUID = 1L;
+
+        public NoSuchAnimationException() {
                 super("Unknown Animation.");
         }
 

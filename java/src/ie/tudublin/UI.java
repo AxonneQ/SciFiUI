@@ -12,8 +12,6 @@ import java.util.ArrayList;
 
 //processing
 import processing.core.PApplet;
-import processing.core.PShape;
-import processing.core.PVector;
 import processing.event.MouseEvent;
 
 public class UI extends PApplet {
@@ -47,11 +45,11 @@ public class UI extends PApplet {
         }
 
         // Storing ALL Elements (Custom, spheres, radars etc..)
-        public static ArrayList<UIElement> elements = new ArrayList<UIElement>();
+        public ArrayList<UIElement> elements = new ArrayList<UIElement>();
 
         // Above array segregated into arrays containing specific shapes.
-        public static ArrayList<CustomShape> custom = new ArrayList<CustomShape>();
-        public static ArrayList<Sphere> spheres = new ArrayList<Sphere>();
+        public ArrayList<CustomShape> custom = new ArrayList<CustomShape>();
+        public ArrayList<Sphere> spheres = new ArrayList<Sphere>();
 
         public void settings() {
                 size(1000, 1000, P3D);

@@ -6,6 +6,7 @@ import ie.tudublin.exceptions.*;
 
 //processing
 import processing.core.PVector;
+import processing.core.PApplet;
 
 
 public class Sphere extends UIElement {
@@ -57,7 +58,7 @@ public class Sphere extends UIElement {
                 ui.fill(fill.r, fill.g, fill.b, fill.a);                
                 
                 ui.pushMatrix();
-                ui.hint(ui.DISABLE_DEPTH_SORT);   
+                ui.hint(PApplet.DISABLE_DEPTH_SORT);   
                 ui.translate(position.x, position.y, position.z);
                 if(!animationType.isBlank()){
                         try{
