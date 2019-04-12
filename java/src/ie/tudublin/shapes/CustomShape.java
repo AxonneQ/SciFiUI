@@ -1,12 +1,17 @@
-package ie.tudublin;
+package ie.tudublin.shapes;
 
-import static processing.core.PConstants.*;
+//local
+import ie.tudublin.*;
 
+//java
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Map;
 
-import processing.core.*;
+//processing
+import processing.core.PVector;
+import processing.core.PShape;
+import static processing.core.PConstants.*;
 
 public class CustomShape extends UIElement {
         private ArrayList<PVector> vertices;
@@ -30,14 +35,15 @@ public class CustomShape extends UIElement {
         );
                 
 
-        CustomShape(UI ui, String[] rawData) {
+        public CustomShape(UI ui, String[] rawData) {
                 super(ui);
                 this.rawData = rawData;
                 vertices = new ArrayList<PVector>(0);
                 contours = new ArrayList<PVector>(0);
                 createVertices();
                 makeShape();
-                UI.custom.add(this);
+                ui.custom.add(this);
+                
         }
 
         private void createVertices() {
@@ -142,6 +148,7 @@ public class CustomShape extends UIElement {
                         s.endContour();
                 }
                 s.endShape(CLOSE);
+                
         }
 
         public void strokeState(boolean b){

@@ -1,5 +1,9 @@
-package ie.tudublin;
+package ie.tudublin.shapes;
 
+//local
+import ie.tudublin.*;
+
+//processing
 import processing.core.PApplet;
 
 public class Button extends UIElement {

@@ -1,5 +1,9 @@
 package ie.tudublin;
 
+//local
+import ie.tudublin.shapes.*;
+
+//java
 import java.util.ArrayList;
 import java.io.FileReader;
 import java.io.IOException;

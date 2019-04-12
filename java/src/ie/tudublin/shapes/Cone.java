@@ -1,5 +1,9 @@
-package ie.tudublin;
+package ie.tudublin.shapes;
 
+//local
+import ie.tudublin.*;
+
+//processing
 import processing.core.PShape;
 import processing.core.PVector;
 import static processing.core.PConstants.*;

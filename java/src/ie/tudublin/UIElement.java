@@ -2,7 +2,7 @@ package ie.tudublin;
 
 
 abstract public class UIElement {
-        UI ui;
+        public UI ui;
 
         public UIElement(UI ui) {
                 this.ui = ui;

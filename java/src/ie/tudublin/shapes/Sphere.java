@@ -1,8 +1,12 @@
-package ie.tudublin;
+package ie.tudublin.shapes;
 
-import processing.core.PVector;
+//local
+import ie.tudublin.*;
 import ie.tudublin.exceptions.*;
-import processing.core.PShape;
+
+//processing
+import processing.core.PVector;
+
 
 public class Sphere extends UIElement {
         private String[] rawData;

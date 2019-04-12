@@ -2,10 +2,15 @@
         Student Name: Igor Bolek
         Student Number: C17487376
 */
-
 package ie.tudublin;
 
+//local
+import ie.tudublin.shapes.*;
+
+//java
 import java.util.ArrayList;
+
+//processing
 import processing.core.PApplet;
 import processing.core.PShape;
 import processing.core.PVector;

@@ -1,13 +1,17 @@
 package ie.tudublin;
 
-import java.util.Map;
+//local
 import ie.tudublin.exceptions.*;
 
-public class Animation {
+//java
+import java.util.Map;
+
+
+public class Animation{
 	private static UI ui;
 
 	public Animation(UI ui){
-		this.ui = ui;
+		//this.ui = ui;
 	}
 	public static Map<String, Integer> animations = Map.of(
                 "ROTATE", 1,
