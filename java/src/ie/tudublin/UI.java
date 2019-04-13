@@ -39,8 +39,8 @@ public class UI extends PApplet {
                 if (destinationPos > 10) {
                         destinationPos = 10;
                 }
-                if (destinationPos < -10) {
-                        destinationPos = -10;
+                if (destinationPos < -20) {
+                        destinationPos = -20;
                 }
         }
 
@@ -69,8 +69,8 @@ public class UI extends PApplet {
                 elements = UIElementLoader.loadUI(this);
 
                 // Fix alpha transparency for 3D objects
-                hint(ENABLE_DEPTH_TEST);
-                hint(ENABLE_DEPTH_SORT);
+                //hint(ENABLE_DEPTH_TEST);
+               // hint(ENABLE_DEPTH_SORT);
                 //hint(DISABLE_DEPTH_TEST); 
                 //hint(DISABLE_DEPTH_SORT); 
 
@@ -87,10 +87,12 @@ public class UI extends PApplet {
                 background(0);
 
                 // stroke(255);
-                point(0, 0);
-                lights();
-
-                //pointLight(255, 255, 255, width / 2, height / 2 + 250, -190);
+                //lights();
+                specular(0,124,224);
+                pointLight(255,255,255,width/2, height/2+340, -200);
+                directionalLight(255, 255, 255, 0, -1, 0);
+                
+                
                 if (checkKey('s')) {
                         for (CustomShape e : custom) {
                                 e.strokeState(true);
@@ -103,12 +105,15 @@ public class UI extends PApplet {
 
 
                 
+               //spotLight(255, 255, 255, mouseX, mouseY, 0, 0, 1, 0, 30, 10000);
+                //spotLight(255, 255, 255, width/2, height/2, -200, 0, 1, 0, PI/16, 2);
                 
                
                 for (UIElement e : elements) {
 
                         e.update();
                         e.render();
+                        
                 }
                 
 
