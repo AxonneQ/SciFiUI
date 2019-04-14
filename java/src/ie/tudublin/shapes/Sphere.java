@@ -6,7 +6,8 @@ import ie.tudublin.exceptions.*;
 
 //processing
 import processing.core.PVector;
-import processing.core.PApplet;
+import static processing.core.PConstants.*;
+
 
 public class Sphere extends UIElement {
         private String[] rawData;
@@ -51,7 +52,8 @@ public class Sphere extends UIElement {
         }
 
         public void update() {
-                
+                ui.lightFalloff(1.0f, 0.00f, 0.0f);
+                ui.pointLight(255,255,255,ui.width/2+200, ui.height/2 -300, -50);
         }
 
         public void render() {
@@ -60,7 +62,10 @@ public class Sphere extends UIElement {
                 
                 ui.pushMatrix();
                // ui.hint(PApplet.DISABLE_DEPTH_SORT);   
-                ui.translate(position.x, position.y, position.z);
+               ui.translate(position.x, position.y, position.z);
+               ui.rotateZ(PI/8);
+               ui.rotateX(-PI/8);
+                
                 if(!animationType.isBlank()){
                         try{
                                 Animation.getAnimation(animationType, animationVars);
@@ -68,6 +73,7 @@ public class Sphere extends UIElement {
                                 System.out.println(e);
                         }
                 }
+                
               
                 ui.sphere(size);
              

@@ -58,7 +58,6 @@ public class UI extends PApplet {
 
         }
 
-        
 
         // vertices
         
@@ -73,7 +72,7 @@ public class UI extends PApplet {
                // hint(ENABLE_DEPTH_SORT);
                 //hint(DISABLE_DEPTH_TEST); 
                 //hint(DISABLE_DEPTH_SORT); 
-
+           
               
 
         }
@@ -89,8 +88,13 @@ public class UI extends PApplet {
                 // stroke(255);
                 //lights();
                 specular(0,124,224);
-                pointLight(255,255,255,width/2, height/2+340, -200);
-                directionalLight(255, 255, 255, 0, -1, 0);
+                lightFalloff(1.0f, 0.03f, 0.0f);
+                pointLight(255,255,255,width/2, height/2 + 350, -100);
+                pointLight(255,255,255,width,height/2,0);
+                pointLight(255,255,255,0,height/2,0);
+                
+                
+                //directionalLight(255, 255, 255, 0, -1, 0);
                 
                 
                 if (checkKey('s')) {
@@ -102,21 +106,26 @@ public class UI extends PApplet {
                                 e.strokeState(false);
                         }
                 }
-
-
+                
                 
                //spotLight(255, 255, 255, mouseX, mouseY, 0, 0, 1, 0, 30, 10000);
                 //spotLight(255, 255, 255, width/2, height/2, -200, 0, 1, 0, PI/16, 2);
                 
-               
                 for (UIElement e : elements) {
 
                         e.update();
                         e.render();
                         
                 }
+                fill(0,0,0,255);
+                noStroke();
+                translate(0,0,200);
+                rect(0,0,width,height/2-100);
                 
-
+/*
+                line(0,0,width,height);
+                line(width,0,0,height);
+   */             
 
         }
 }

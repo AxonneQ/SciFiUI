@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Animation {
         private static UI ui;
-
+        private static float rotZ = 0;
         public Animation(UI ui) {
                 Animation.ui = ui;
         }
@@ -36,9 +36,10 @@ public class Animation {
         static private void rotate(float[] angle) {
 
                 if (angle.length > 2) {
-                        ui.translate(-100, -20, -100);
+                        ui.translate(-150,-50,0);
                         ui.rotateY(angle[0] += angle[1]);
-                        ui.translate(100, 20, 100);
+                        ui.translate(150,50,0);
+ 
                 } else {
                         ui.rotateY(angle[0] += angle[1]);
                 }
