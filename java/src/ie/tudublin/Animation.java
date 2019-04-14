@@ -8,7 +8,6 @@ import java.util.Map;
 
 public class Animation {
         private static UI ui;
-        private static float rotZ = 0;
         public Animation(UI ui) {
                 Animation.ui = ui;
         }

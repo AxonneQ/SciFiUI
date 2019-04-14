@@ -14,14 +14,18 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.event.MouseEvent;
 
+
 public class UI extends PApplet {
-        // Input:
+        // Input vars:
         boolean[] keys = new boolean[1024];
         float currentPos;
         float destinationPos;
-        Camera cam = new Camera(this);
-        Animation animation = new Animation(this);
 
+        //Utility vars
+        Camera cam;
+        Animation animation;
+
+        //Input functions
         public void keyPressed() {
                 keys[keyCode] = true;
         }
@@ -44,6 +48,8 @@ public class UI extends PApplet {
                 }
         }
 
+
+        
         // Storing ALL Elements (Custom, spheres, radars etc..)
         public ArrayList<UIElement> elements = new ArrayList<UIElement>();
 
@@ -51,16 +57,16 @@ public class UI extends PApplet {
         public ArrayList<CustomShape> custom = new ArrayList<CustomShape>();
         public ArrayList<Sphere> spheres = new ArrayList<Sphere>();
 
+
+
+
+        //Processing
         public void settings() {
                 size(1000, 1000, P3D);
-                // fullScreen();
+                //fullScreen();
                 smooth(8);
 
         }
-
-
-        // vertices
-        
 
         public void setup() {
                
@@ -73,7 +79,8 @@ public class UI extends PApplet {
                 //hint(DISABLE_DEPTH_TEST); 
                 //hint(DISABLE_DEPTH_SORT); 
            
-              
+                cam = new Camera(this);
+                animation = new Animation(this);
 
         }
 
@@ -81,6 +88,7 @@ public class UI extends PApplet {
         public void draw() {
                 // Move camera using mouse
                 cam.moveEye(mouseX, mouseY, currentPos = lerp(currentPos, destinationPos, 0.1f));
+                //println(cam.toString());
 
                 // Clear canvas
                 background(0);
