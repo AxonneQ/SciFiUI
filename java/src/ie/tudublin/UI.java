@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 //processing
 import processing.core.PApplet;
+import processing.core.PShape;
 import processing.event.MouseEvent;
 
 
@@ -24,6 +25,7 @@ public class UI extends PApplet {
         //Utility vars
         Camera cam;
         Animation animation;
+        MousePicker cursor;
 
         //Input functions
         public void keyPressed() {
@@ -65,9 +67,10 @@ public class UI extends PApplet {
                 size(1000, 1000, P3D);
                 //fullScreen();
                 smooth(8);
+                
 
         }
-
+        PShape ray;
         public void setup() {
                
                 // Load all shapes from csv file
@@ -75,13 +78,23 @@ public class UI extends PApplet {
 
                 // Fix alpha transparency for 3D objects
                 //hint(ENABLE_DEPTH_TEST);
-               // hint(ENABLE_DEPTH_SORT);
+                // hint(ENABLE_DEPTH_SORT);
                 //hint(DISABLE_DEPTH_TEST); 
                 //hint(DISABLE_DEPTH_SORT); 
            
                 cam = new Camera(this);
                 animation = new Animation(this);
+                cursor = new MousePicker(this);
 
+
+                ray = new PShape();
+                ray = createShape();
+                ray.beginShape(LINES);
+                ray.stroke(255);
+                ray.fill(255);
+                ray.vertex(width/2,height/2,200);
+                ray.vertex(width/2,height/2, -1000);
+                ray.endShape(CLOSE);
         }
 
         // Main loop
@@ -89,12 +102,14 @@ public class UI extends PApplet {
                 // Move camera using mouse
                 cam.moveEye(mouseX, mouseY, currentPos = lerp(currentPos, destinationPos, 0.1f));
                 //println(cam.toString());
+                cursor.update();
+                
 
                 // Clear canvas
                 background(0);
 
                 // stroke(255);
-                //lights();
+                lights();
                 specular(0,124,224);
                 lightFalloff(1.0f, 0.03f, 0.0f);
                 pointLight(255,255,255,width/2, height/2 + 350, -100);
@@ -130,6 +145,15 @@ public class UI extends PApplet {
                 translate(0,0,200);
                 rect(0,0,width,height/2-100);
                 
+                
+                
+                
+                stroke(255);
+                fill(255);
+                line(mouseX, mouseY,  0, cam.position.x, cam.position.y,  1000);
+          
+                text(mouseX + " " + mouseY, cam.position.x, cam.position.y);
+                text(cam.position.x + " " + cam.position.y, cam.position.x, cam.position.y + 20);
 /*
                 line(0,0,width,height);
                 line(width,0,0,height);
