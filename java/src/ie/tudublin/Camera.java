@@ -1,5 +1,6 @@
 package ie.tudublin;
 
+
 //local
 import ie.tudublin.UI;
 
@@ -41,4 +42,8 @@ public class Camera {
         public String toString(){
                 return "CamPos: X: " + position.x + " Y: " + position.y + " Z: " + position.z;
         }
+
+		public PVector getPosition() {
+			return position;
+		}
 }

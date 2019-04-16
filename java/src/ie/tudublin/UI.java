@@ -10,6 +10,8 @@ import ie.tudublin.shapes.*;
 //java
 import java.util.ArrayList;
 
+import org.lwjgl.util.vector.Matrix4f;
+
 //processing
 import processing.core.PApplet;
 import processing.core.PShape;
@@ -42,12 +44,16 @@ public class UI extends PApplet {
 
         public void mouseWheel(MouseEvent event) {
                 destinationPos = currentPos + event.getCount() * 5;
-                if (destinationPos > 10) {
+               /* if (destinationPos > 10) {
                         destinationPos = 10;
                 }
                 if (destinationPos < -20) {
                         destinationPos = -20;
-                }
+                }*/
+        }
+
+        public void mousePressed(){
+                println(cursor.getCurrentRay());
         }
 
 
@@ -75,6 +81,7 @@ public class UI extends PApplet {
                
                 // Load all shapes from csv file
                 elements = UIElementLoader.loadUI(this);
+                Matrix4f projectionMatrix = MousePicker.createProjectionMatrix();
 
                 // Fix alpha transparency for 3D objects
                 //hint(ENABLE_DEPTH_TEST);
@@ -84,15 +91,15 @@ public class UI extends PApplet {
            
                 cam = new Camera(this);
                 animation = new Animation(this);
-                cursor = new MousePicker(this);
-
+                cursor = new MousePicker(this, cam, projectionMatrix);
+                
 
                 ray = new PShape();
                 ray = createShape();
                 ray.beginShape(LINES);
                 ray.stroke(255);
                 ray.fill(255);
-                ray.vertex(width/2,height/2,200);
+                ray.vertex(width/2,height/2, 600);
                 ray.vertex(width/2,height/2, -1000);
                 ray.endShape(CLOSE);
         }
@@ -103,6 +110,7 @@ public class UI extends PApplet {
                 cam.moveEye(mouseX, mouseY, currentPos = lerp(currentPos, destinationPos, 0.1f));
                 //println(cam.toString());
                 cursor.update();
+               
                 
 
                 // Clear canvas
@@ -143,17 +151,25 @@ public class UI extends PApplet {
                 fill(0,0,0,255);
                 noStroke();
                 translate(0,0,200);
-                rect(0,0,width,height/2-100);
+                //rect(0,0,width,height/2-100);
                 
+                stroke(255);
+                fill(255);
+                cursor.drawRay();
+
+
+                //ray.setVertex(0, cam.position.x, cam.position.y, cam.position.z);
+                //ray.setVertex(1, (cursor.getCurrentRay().x*1000)+width/2, (cursor.getCurrentRay().y*1000)+height/2, cursor.getCurrentRay().z*2000);
+                //shape(ray);
+                //line(cam.position.x, cam.position.y, cam.position.z, cursor.getCurrentRay().x*1000+width/2, cursor.getCurrentRay().y*1000+height/2, cursor.getCurrentRay().z*1000);
                 
-                
-                
+                /*
                 stroke(255);
                 fill(255);
                 line(mouseX, mouseY,  0, cam.position.x, cam.position.y,  1000);
           
                 text(mouseX + " " + mouseY, cam.position.x, cam.position.y);
-                text(cam.position.x + " " + cam.position.y, cam.position.x, cam.position.y + 20);
+                text(cam.position.x + " " + cam.position.y, cam.position.x, cam.position.y + 20);*/
 /*
                 line(0,0,width,height);
                 line(width,0,0,height);
