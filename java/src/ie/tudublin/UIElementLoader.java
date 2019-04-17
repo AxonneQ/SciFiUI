@@ -98,6 +98,13 @@ public class UIElementLoader {
                                                         elements.add(custom3d);
                                                         System.out.println("Adding shape: " + lineSegments[0]);
                                                         break;
+
+                                                case "PLANET":
+                                                        UIElement planet = new Planet(ui, lineSegments);
+                                                        elements.add(planet);
+                                                        System.out.println("Adding planet: " + lineSegments[1]);
+                                                        break;
+                                                        
                                                 case "":
                                                         break;
 

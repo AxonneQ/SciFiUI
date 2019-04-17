@@ -25,6 +25,10 @@ public class Sphere extends UIElement {
                 createSphere();
         }
 
+        public Sphere(UI ui, PVector position, float radius, String rotate, float rotationAngle, float axisAngle){
+                super(ui);
+        }
+
         private void createSphere() {
                 String delimiter = ":";
                 String[] rawPos = rawData[4].split(delimiter);

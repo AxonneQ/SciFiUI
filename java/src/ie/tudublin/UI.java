@@ -64,6 +64,9 @@ public class UI extends PApplet {
         // Above array segregated into arrays containing specific shapes.
         public ArrayList<CustomShape> custom = new ArrayList<CustomShape>();
         public ArrayList<Sphere> spheres = new ArrayList<Sphere>();
+       
+        // Planets generated from star information and sphere shapes.
+        public ArrayList<Planet> planets = new ArrayList<Planet>();
 
 
 
