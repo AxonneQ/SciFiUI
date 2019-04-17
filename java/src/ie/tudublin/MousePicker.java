@@ -111,7 +111,7 @@ public class MousePicker {
                 float x_scale = y_scale / aspectRatio;
                 float frustum_length = FAR_PLANE - NEAR_PLANE;
 
-                System.out.println(y_scale + " " + y_scale);
+                //System.out.println(y_scale + " " + y_scale);
 
                 projectionMatrix = new Matrix4f();
                 projectionMatrix.m00 = x_scale;

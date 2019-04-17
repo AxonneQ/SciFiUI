@@ -144,13 +144,24 @@ public class UI extends PApplet {
                 
                //spotLight(255, 255, 255, mouseX, mouseY, 0, 0, 1, 0, 30, 10000);
                 //spotLight(255, 255, 255, width/2, height/2, -200, 0, 1, 0, PI/16, 2);
-                
+                String prev = "";
                 for (UIElement e : elements) {
-
-                        e.update();
-                        e.render();
-                        
+                        //Render an active planet before hologram cones get rendered.
+                       
+                        if(e.type.equals("CONE") && !prev.equals("CONE")){
+                                for(Planet p : planets){
+                                        if(p.isActive){
+                                                p.render();
+                                        }
+                                }
+                        }
+                        if(!e.type.equals("PLANET")){
+                                //e.update();
+                                //e.render();
+                        }
+                        prev = e.type;
                 }
+
                 fill(0,0,0,255);
                 noStroke();
                 translate(0,0,200);

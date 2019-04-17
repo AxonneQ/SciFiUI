@@ -14,7 +14,7 @@ public class Button extends UIElement {
         private String text;
 
         public Button(UI ui, float x, float y, float width, float height, String text) {
-                super(ui);
+                super(ui, "BUTTON");
                 this.x = x;
                 this.y = y;
                 this.width = width;

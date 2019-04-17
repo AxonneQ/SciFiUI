@@ -25,7 +25,7 @@ public class Cone extends UIElement {
         
 
         public Cone(UI ui, String[] rawData) {
-                super(ui);
+                super(ui, rawData[0]);
                 this.rawData = rawData;
                 createCone();
         }

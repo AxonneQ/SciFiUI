@@ -14,7 +14,7 @@ public class MovingCircle extends UIElement {
         private float radius;
 
         public MovingCircle(UI ui, float x, float y, float diameter) {
-                super(ui);
+                super(ui, "MOVING_CIRCLE");
                 this.x = x;
                 this.y = y;
                 this.diameter = diameter;

@@ -4,6 +4,7 @@ package ie.tudublin;
 
 //local
 import ie.tudublin.shapes.Sphere;
+import ie.tudublin.shapes.Orbit;
 
 //java
 import java.util.Random;
@@ -28,6 +29,7 @@ public class Planet extends UIElement {
         //Sphere vars
         private Sphere mainPlanet;
         private ArrayList<Sphere> moons;
+        private ArrayList<Orbit> orbitRings;
         private PVector position;
         public boolean isActive;
 
@@ -36,7 +38,7 @@ public class Planet extends UIElement {
 
 
         public Planet(UI ui, String[] rawData) {
-                super(ui);
+                super(ui, rawData[0]);
                 this.rawData = rawData;
                 createPlanet();
         }
@@ -58,25 +60,43 @@ public class Planet extends UIElement {
 
                 //Sphere 
                 position = new PVector(ui.width/2, ui.height/2, -200);   //position the planet in the middle of hologram projection
-                isActive = false; // Turn off projection by default
+                PVector moonPos = new PVector(position.x + radius, position.y, position.z);
+                isActive = true; // Turn off projection by default
                 moons = new ArrayList<Sphere>();
+                orbitRings = new ArrayList<Orbit>();
 
                 mainPlanet = new Sphere(ui, position, radius, "ROTATE", rotationAngle, axisAngle);
 
-                for(int i = 0; i < moonCount; i++){
+
+                if(moonCount > 0){
                         Random r = new Random();
                         float min = 0.0005f;
                         float max = 0.005f;
-                        float randomAngle =  min + r.nextFloat() * (max-min);
-                        moons.add(new Sphere(ui, position, radius, "ROTATE", randomAngle, axisAngle));
+                        float moonRadius;
+                        float randomAngle; 
+
+                        for(int i = 0; i < moonCount; i++){
+                                moonRadius = radius / (ui.random(15) + 5);
+                                randomAngle =  min + r.nextFloat() * (max-min);
+                              
+                                //space out the moons every 100 px
+                                moonPos.x += 30;
+
+                                
+                                moons.add(new Sphere(ui, new PVector(moonPos.x, moonPos.y, moonPos.z), moonRadius, "ROTATE", randomAngle, axisAngle));
+                                orbitRings.add(new Orbit(ui, position, (position.x - moonPos.x), axisAngle));
+        
+                        }
                 }
 
-                ui.planets.add(this);
 
+                ui.planets.add(this);
         }
 
 
-
+        private void moveMoon(){
+                
+        }
 
 
         public void update() {
@@ -87,6 +107,9 @@ public class Planet extends UIElement {
                 mainPlanet.render();
                 for(Sphere m : moons) {
                         m.render();
+                }
+                for(Orbit o : orbitRings){
+                        o.render();
                 }
         }
 

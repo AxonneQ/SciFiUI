@@ -36,7 +36,7 @@ public class CustomShape extends UIElement {
                 
 
         public CustomShape(UI ui, String[] rawData) {
-                super(ui);
+                super(ui, rawData[0]);
                 this.rawData = rawData;
                 vertices = new ArrayList<PVector>(0);
                 contours = new ArrayList<PVector>(0);

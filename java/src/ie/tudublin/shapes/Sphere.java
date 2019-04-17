@@ -20,20 +20,20 @@ public class Sphere extends UIElement {
         private float axisAngle;
 
         public Sphere(UI ui, String[] rawData) {
-                super(ui);
+                super(ui, rawData[0]);
                 this.rawData = rawData;
                 createSphere();
         }
 
         public Sphere(UI ui, PVector position, float radius, String rotate, float rotationAngle, float axisAngle){
-                super(ui);
+                super(ui, "SPHERE");
                 this.size = radius;
                 this.position = position;
                 this.animationType = rotate;
                 this.animationVars = new float[]{0.0f, rotationAngle};
                 this.axisAngle = axisAngle;
-                stroke = new Color((int)ui.random(255), (int)ui.random(255), (int)ui.random(255));
-                fill = new Color((int)ui.random(255), (int)ui.random(255), (int)ui.random(255));
+                stroke = new Color(0, 104, 224,  40);
+                fill = new Color((int)ui.random(255), (int)ui.random(255), (int)ui.random(255), 255);
         }
 
         private void createSphere() {
