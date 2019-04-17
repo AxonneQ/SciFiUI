@@ -3,6 +3,9 @@ package ie.tudublin;
 //local
 import ie.tudublin.exceptions.*;
 
+//java
+import java.lang.reflect.Array;
+
 public class Color {
         public int r;
         public int g;
@@ -20,6 +23,19 @@ public class Color {
                 } catch (IncorrectColorException e) {
                         System.out.println("Incorrect color value read from file.");
                 }
+        }
+
+        public Color(int ... vars){
+                r = vars[0];
+                g = vars[1];
+                b = vars[2];
+                if (Array.getLength(vars) == 4){
+                        a = vars[3];
+                } else {
+                        a = 255;
+                }
+                
+
         }
 
         private void stringToColor(String rawColor) throws IncorrectColorException {

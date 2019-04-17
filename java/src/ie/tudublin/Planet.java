@@ -7,6 +7,7 @@ import ie.tudublin.shapes.Sphere;
 
 //java
 import java.util.Random;
+import java.util.ArrayList;
 
 //processing
 import processing.core.PVector;
@@ -25,8 +26,8 @@ public class Planet extends UIElement {
         private float water;   
 
         //Sphere vars
-        Sphere mainPlanet;
-        Sphere[] moons;
+        private Sphere mainPlanet;
+        private ArrayList<Sphere> moons;
         private PVector position;
         public boolean isActive;
 
@@ -58,6 +59,7 @@ public class Planet extends UIElement {
                 //Sphere 
                 position = new PVector(ui.width/2, ui.height/2, -200);   //position the planet in the middle of hologram projection
                 isActive = false; // Turn off projection by default
+                moons = new ArrayList<Sphere>();
 
                 mainPlanet = new Sphere(ui, position, radius, "ROTATE", rotationAngle, axisAngle);
 
@@ -66,10 +68,10 @@ public class Planet extends UIElement {
                         float min = 0.0005f;
                         float max = 0.005f;
                         float randomAngle =  min + r.nextFloat() * (max-min);
-                        mainPlanet = new Sphere(ui, position, radius, "ROTATE", randomAngle, axisAngle);
+                        moons.add(new Sphere(ui, position, radius, "ROTATE", randomAngle, axisAngle));
                 }
 
-                
+                ui.planets.add(this);
 
         }
 
@@ -82,7 +84,10 @@ public class Planet extends UIElement {
         }
 
         public void render() {
-
+                mainPlanet.render();
+                for(Sphere m : moons) {
+                        m.render();
+                }
         }
 
 }

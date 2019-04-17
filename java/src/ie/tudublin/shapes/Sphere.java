@@ -6,7 +6,6 @@ import ie.tudublin.exceptions.*;
 
 //processing
 import processing.core.PVector;
-import static processing.core.PConstants.*;
 
 
 public class Sphere extends UIElement {
@@ -18,6 +17,7 @@ public class Sphere extends UIElement {
 
         private String animationType;
         private float[] animationVars;
+        private float axisAngle;
 
         public Sphere(UI ui, String[] rawData) {
                 super(ui);
@@ -27,6 +27,13 @@ public class Sphere extends UIElement {
 
         public Sphere(UI ui, PVector position, float radius, String rotate, float rotationAngle, float axisAngle){
                 super(ui);
+                this.size = radius;
+                this.position = position;
+                this.animationType = rotate;
+                this.animationVars = new float[]{0.0f, rotationAngle};
+                this.axisAngle = axisAngle;
+                stroke = new Color((int)ui.random(255), (int)ui.random(255), (int)ui.random(255));
+                fill = new Color((int)ui.random(255), (int)ui.random(255), (int)ui.random(255));
         }
 
         private void createSphere() {
@@ -38,20 +45,21 @@ public class Sphere extends UIElement {
                                 Float.parseFloat(rawPos[1]) + ui.height / 2, Float.parseFloat(rawPos[2]));
                 stroke = new Color(rawData[1]);
                 fill = new Color(rawData[2]);
+                axisAngle = Float.parseFloat(rawData[5]);
 
                 //Load additional Animation arguments
-                if(rawData.length > 5) {
-                        animationType = rawData[5];
-                        int noOfArgs = rawData.length - 6;
+                if(rawData.length > 6) {
+                        animationType = rawData[6];
+                        int noOfArgs = rawData.length - 7;
                         animationVars = new float[noOfArgs];
                         for(int i = 0; i < noOfArgs; i++)
                         {
-                                animationVars[i] = (Float.parseFloat(rawData[i + 6]));
+                                animationVars[i] = (Float.parseFloat(rawData[i + 7]));
                         }
+
                 } else {
                         animationType = "";
                 }
-                ui.spheres.add(this);
                 
         }
 
@@ -67,8 +75,8 @@ public class Sphere extends UIElement {
                 ui.pushMatrix();
                // ui.hint(PApplet.DISABLE_DEPTH_SORT);   
                ui.translate(position.x, position.y, position.z);
-               ui.rotateZ(PI/8);
-               ui.rotateX(-PI/8);
+               ui.rotateZ((float)Math.toRadians(axisAngle));
+               ui.rotateX((float)Math.toRadians(axisAngle) * -1);
                 
                 if(!animationType.isBlank()){
                         try{
