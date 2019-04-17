@@ -39,7 +39,7 @@ public class MousePicker {
         public void drawRay() {
                 Vector3f s = getPointOnRay(currentRay, 0);
                 Vector3f p = getPointOnRay(currentRay, 5000);
-                ui.stroke(255);
+              /*  ui.stroke(255);
                 ui.pushMatrix();
                 ui.translate(s.x,s.y,s.z);
                 ui.sphere(20);
@@ -50,6 +50,7 @@ public class MousePicker {
                 ui.translate(p.x, p.y, p.z);
                 ui.sphere(20);
                 ui.popMatrix();
+                */
         }
 
         public Vector3f getCurrentRay() {

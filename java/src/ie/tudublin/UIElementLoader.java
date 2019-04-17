@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.io.BufferedReader;
 
 public class UIElementLoader {
@@ -37,76 +38,78 @@ public class UIElementLoader {
                 // And I wanted the Element loader to be separated from the main sketch
                 // (UI.java) class.
 
-                String file = "java/data/Shapes.csv";
+                String[] file = { "java/data/Shapes.csv", "java/data/Stars.csv" };
                 String delimiter = ",";
                 String line;
 
                 try {
-                        FileReader fileReader = new FileReader(file);
-                        BufferedReader fileReaderBuffered = new BufferedReader(fileReader);
+                        for (int i = 0; i < Array.getLength(file); i++) {
+                                FileReader fileReader = new FileReader(file[i]);
+                                BufferedReader fileReaderBuffered = new BufferedReader(fileReader);
 
-                        while ((line = fileReaderBuffered.readLine()) != null) {
-                                line = checkBOM(line);
+                                while ((line = fileReaderBuffered.readLine()) != null) {
+                                        line = checkBOM(line);
 
-                                // If line is not a comment or is not empty...
-                                if (!line.startsWith("#") && !line.startsWith("\"#") && !line.startsWith(",")) {
-                                        // Split line into multiple entries
-                                        String[] lineSegments = line.split(delimiter);
+                                        // If line is not a comment or is not empty...
+                                        if (!line.startsWith("#") && !line.startsWith("\"#") && !line.startsWith(",")) {
+                                                // Split line into multiple entries
+                                                String[] lineSegments = line.split(delimiter);
 
-                                        // Cut out all whitespaces
-                                        String shapeDescription = lineSegments[0].trim();
+                                                // Cut out all whitespaces
+                                                String shapeDescription = lineSegments[0].trim();
 
-                                        switch (shapeDescription) {
-                                        case "RADAR":
-                                                UIElement radar = new Radar(ui, Float.parseFloat(lineSegments[1]),
-                                                                Float.parseFloat(lineSegments[2]),
-                                                                Float.parseFloat(lineSegments[3]),
-                                                                Float.parseFloat(lineSegments[4]));
-                                                elements.add(radar);
-                                                System.out.println("Adding shape: " + lineSegments[0]);
-                                                break;
+                                                switch (shapeDescription) {
+                                                case "RADAR":
+                                                        UIElement radar = new Radar(ui,
+                                                                        Float.parseFloat(lineSegments[1]),
+                                                                        Float.parseFloat(lineSegments[2]),
+                                                                        Float.parseFloat(lineSegments[3]),
+                                                                        Float.parseFloat(lineSegments[4]));
+                                                        elements.add(radar);
+                                                        System.out.println("Adding shape: " + lineSegments[0]);
+                                                        break;
 
-                                        case "SPHERE":
-                                                UIElement sphere = new Sphere(ui, lineSegments);
-                                                elements.add(sphere);
-                                                System.out.println("Adding shape: "+ lineSegments[0]);
-                                                break;
+                                                case "SPHERE":
+                                                        UIElement sphere = new Sphere(ui, lineSegments);
+                                                        elements.add(sphere);
+                                                        System.out.println("Adding shape: " + lineSegments[0]);
+                                                        break;
 
-                                        case "CONE":
-                                                UIElement cone = new Cone(ui, lineSegments);
-                                                elements.add(cone);
-                                                System.out.println("Adding shape: "+ lineSegments[0]);
-                                                break;
+                                                case "CONE":
+                                                        UIElement cone = new Cone(ui, lineSegments);
+                                                        elements.add(cone);
+                                                        System.out.println("Adding shape: " + lineSegments[0]);
+                                                        break;
 
-                                        case "ORBIT":
-                                                UIElement orbit = new Orbit(ui, lineSegments);
-                                                elements.add(orbit);
-                                                System.out.println("Adding shape: "+ lineSegments[0]);
-                                                break;
+                                                case "ORBIT":
+                                                        UIElement orbit = new Orbit(ui, lineSegments);
+                                                        elements.add(orbit);
+                                                        System.out.println("Adding shape: " + lineSegments[0]);
+                                                        break;
 
-                                        case "CUSTOM2D":
-                                                UIElement custom2d = new CustomShape(ui, lineSegments);
-                                                elements.add(custom2d);
-                                                System.out.println("Adding shape: " + lineSegments[0]);
-                                                break;
+                                                case "CUSTOM2D":
+                                                        UIElement custom2d = new CustomShape(ui, lineSegments);
+                                                        elements.add(custom2d);
+                                                        System.out.println("Adding shape: " + lineSegments[0]);
+                                                        break;
 
-                                        case "CUSTOM3D":
-                                                UIElement custom3d = new CustomShape(ui, lineSegments);
-                                                elements.add(custom3d);
-                                                System.out.println("Adding shape: " + lineSegments[0]);
-                                                break;
-                                        case "":
-                                                break;
+                                                case "CUSTOM3D":
+                                                        UIElement custom3d = new CustomShape(ui, lineSegments);
+                                                        elements.add(custom3d);
+                                                        System.out.println("Adding shape: " + lineSegments[0]);
+                                                        break;
+                                                case "":
+                                                        break;
 
-                                        default:
-                                                break;
+                                                default:
+                                                        break;
+                                                }
                                         }
                                 }
+                                // Close Readers
+                                fileReaderBuffered.close();
+                                fileReader.close();
                         }
-
-                        // Close Readers
-                        fileReaderBuffered.close();
-                        fileReader.close();
 
                 } catch (IOException e) {
                         System.out.println("Error! File corrupted or does not exist!");
