@@ -76,7 +76,6 @@ public class Planet extends UIElement {
                         float randomAngle;
                         current = new int[moonCount];
 
-
                         for (int i = 0; i < moonCount; i++) {
                                 moonRadius = radius / (ui.random(15) + 5);
                                 randomAngle = min + r.nextFloat() * (max - min);
@@ -96,52 +95,59 @@ public class Planet extends UIElement {
         }
 
         private void initMoonPos() {
-                //Set initial position of moons to be on a random vertex of the orbit (between 0 - 29)
+                // Set initial position of moons to be on a random vertex of the orbit (between
+                // 0 - 29)
                 for (int i = 0; i < moonCount; i++) {
-                        int rand = (int)ui.random(0, orbitRings.get(i).getVerts().length);
+                        int rand = (int) ui.random(0, orbitRings.get(i).getVerts().length);
                         PVector randPosOnOrbit = orbitRings.get(i).getVert(rand);
                         moons.get(i).setPos(randPosOnOrbit);
                         current[i] = rand;
                 }
         }
 
-        private PVector generateLightSource(){
+        private PVector generateLightSource() {
                 PVector randLightSource;
-                if(moonCount > 2){
-                        // if there are more than 2 moons, select random vertex of the last orbit as light source then adjust height to be random.
-                        int rand = (int)ui.random(0, orbitRings.get(moonCount-1).getVerts().length);
-                        randLightSource = orbitRings.get(moonCount-1).getVert(rand);
-                        randLightSource.y = ui.random(-200, 200) + ui.height/2;
-                        randLightSource.x += ui.width/2; 
+                if (moonCount > 2) {
+                        // if there are more than 2 moons, select random vertex of the last orbit as
+                        // light source then adjust height to be random.
+                        int rand = (int) ui.random(0, orbitRings.get(moonCount - 1).getVerts().length);
+                        randLightSource = new PVector(orbitRings.get(moonCount - 1).getVert(rand).x,
+                        orbitRings.get(moonCount - 1).getVert(rand).y,
+                        orbitRings.get(moonCount - 1).getVert(rand).z);     
+                        randLightSource.y += ui.random(-200, 200) + ui.height / 2;
+                        randLightSource.x += ui.width / 2;
                 } else {
-                        //else generate a default light source
-                        randLightSource = new PVector(ui.random(-200, 200) + ui.width/2, ui.random(-200, 200) + ui.height/2, ui.random(-50, 50));
+                        // else generate a default light source
+                        randLightSource = new PVector(ui.random(-200, 200) + ui.width / 2,
+                                        ui.random(-200, 200) + ui.height / 2, ui.random(-50, 50));
                 }
 
                 return randLightSource;
         }
 
         public void update() {
-                
+
                 for (int i = 0; i < moonCount; i++) {
-                        //Decrement to go anti-clockwise around the orbit
-                        if(current[i] <= 0){
+                        // Decrement to go anti-clockwise around the orbit
+                        if (current[i] <= 0) {
                                 current[i] = orbitRings.get(i).getVerts().length - 1;
                         }
                         PVector toNext = PVector.sub(orbitRings.get(i).getVert(current[i]), moons.get(i).getPos());
-                        toNext.x += ui.width/2;
-                        toNext.y += ui.height/2;
+                        toNext.x += ui.width / 2;
+                        toNext.y += ui.height / 2;
                         toNext.z += -200;
                         float dist = toNext.mag();
-                        
-                        if(ui.frameCount % (i + 1 ) <= 1){
-                                toNext.normalize();
-                                moons.get(i).getPos().add(toNext);
+                        toNext.normalize();
+                        if (ui.frameCount % (i + 1) <= 5) {
+
+                                
+
                         }
-                        
-                        if (dist < 1) {                      
-                                        current[i]--;
+                        moons.get(i).getPos().add(toNext);
+                        if (dist < 1) {
+                                current[i]--;
                         }
+
                 }
         }
 
@@ -149,19 +155,19 @@ public class Planet extends UIElement {
 
                 ui.pushMatrix();
 
-                //Render main planet
-                ui.lightFalloff(0.9f,0f,0f);
-                ui.pointLight(255,255,255, lightPos.x, lightPos.y, lightPos.z);
+                // Render main planet
+                ui.lightFalloff(0.9f, 0f, 0f);
+                ui.pointLight(255, 255, 255, lightPos.x, lightPos.y, lightPos.z);
                 mainPlanet.render();
-               // ui.pointLight(255,255,255, lightPos.x, lightPos.y, lightPos.z);
+                // ui.pointLight(255,255,255, lightPos.x, lightPos.y, lightPos.z);
 
-                //Render its moons if any
+                // Render its moons if any
                 for (Sphere m : moons) {
                         m.renderRotated();
                 }
 
-                //Render planet orbit if moons present
-                for (Orbit o : orbitRings) {         
+                // Render planet orbit if moons present
+                for (Orbit o : orbitRings) {
                         o.render();
                 }
 
