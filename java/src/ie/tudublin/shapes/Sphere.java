@@ -64,19 +64,20 @@ public class Sphere extends UIElement {
         }
 
         public void update() {
-                ui.lightFalloff(1.0f, 0.00f, 0.0f);
-                ui.pointLight(255,255,255,ui.width/2+200, ui.height/2 -300, -50);
+
+
+
         }
 
         public void render() {
                 ui.stroke(stroke.r, stroke.g, stroke.b, stroke.a);
                 ui.fill(fill.r, fill.g, fill.b, fill.a);                
-                
+
                 ui.pushMatrix();
                // ui.hint(PApplet.DISABLE_DEPTH_SORT);   
                ui.translate(position.x, position.y, position.z);
                ui.rotateZ((float)Math.toRadians(axisAngle));
-               ui.rotateX((float)Math.toRadians(axisAngle) * -1);
+               ui.rotateX(-(float)Math.toRadians(axisAngle));
                 
                 if(!animationType.isBlank()){
                         try{
@@ -85,13 +86,37 @@ public class Sphere extends UIElement {
                                 System.out.println(e);
                         }
                 }
-                
-              
                 ui.sphere(size);
-             
                 ui.popMatrix();
-                
-                
+        }
 
+        public void renderRotated(){
+                ui.stroke(stroke.r, stroke.g, stroke.b, stroke.a);
+                ui.fill(fill.r, fill.g, fill.b, fill.a);                
+                       
+                ui.pushMatrix();
+                ui.translate(ui.width/2, ui.height/2, -200);
+                ui.rotateZ((float)Math.toRadians(axisAngle));
+                ui.rotateX(-(float)Math.toRadians(axisAngle));
+                ui.translate(position.x-(ui.width/2), position.y-(ui.height/2), position.z+(200));
+                if(!animationType.isBlank()){
+                        try{
+                                Animation.getAnimation(animationType, animationVars);
+                        } catch (NoSuchAnimationException e){
+                                System.out.println(e);
+                        }
+                } 
+                ui.sphere(size);
+                ui.popMatrix();
+        }
+
+        public PVector getPos(){
+                return position;
+        }
+
+        public void setPos(PVector pos)
+        {
+                this.position = new PVector(pos.x+ui.width/2, pos.y+ui.height/2, pos.z-200);
+               
         }
 }

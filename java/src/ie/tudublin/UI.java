@@ -120,14 +120,14 @@ public class UI extends PApplet {
                 background(0);
 
                 // stroke(255);
-                lights();
+                //lights();
                 specular(0,124,224);
                 lightFalloff(1.0f, 0.03f, 0.0f);
                 pointLight(255,255,255,width/2, height/2 + 350, -100);
                 pointLight(255,255,255,width,height/2,0);
                 pointLight(255,255,255,0,height/2,0);
                 
-                
+              
                 //directionalLight(255, 255, 255, 0, -1, 0);
                 
                 
@@ -151,13 +151,14 @@ public class UI extends PApplet {
                         if(e.type.equals("CONE") && !prev.equals("CONE")){
                                 for(Planet p : planets){
                                         if(p.isActive){
+                                                p.update();
                                                 p.render();
                                         }
                                 }
                         }
                         if(!e.type.equals("PLANET")){
-                                //e.update();
-                                //e.render();
+                                e.update();
+                                e.render();
                         }
                         prev = e.type;
                 }
@@ -172,22 +173,7 @@ public class UI extends PApplet {
                 cursor.drawRay();
 
 
-                //ray.setVertex(0, cam.position.x, cam.position.y, cam.position.z);
-                //ray.setVertex(1, (cursor.getCurrentRay().x*1000)+width/2, (cursor.getCurrentRay().y*1000)+height/2, cursor.getCurrentRay().z*2000);
-                //shape(ray);
-                //line(cam.position.x, cam.position.y, cam.position.z, cursor.getCurrentRay().x*1000+width/2, cursor.getCurrentRay().y*1000+height/2, cursor.getCurrentRay().z*1000);
-                
-                /*
-                stroke(255);
-                fill(255);
-                line(mouseX, mouseY,  0, cam.position.x, cam.position.y,  1000);
-          
-                text(mouseX + " " + mouseY, cam.position.x, cam.position.y);
-                text(cam.position.x + " " + cam.position.y, cam.position.x, cam.position.y + 20);*/
-/*
-                line(0,0,width,height);
-                line(width,0,0,height);
-   */             
+             
 
         }
 }

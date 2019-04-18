@@ -50,7 +50,9 @@ public class Orbit extends UIElement {
                 for (PVector v : vertices) {
                         orbit.vertex(v.x, v.y, v.z);
                 }
+
                 orbit.endShape(CLOSE);
+
         }
 
         private void createOrbit() {
@@ -76,13 +78,23 @@ public class Orbit extends UIElement {
                 orbit = new PShape();
                 orbit = ui.createShape();
                 orbit.beginShape();
+
                 orbit.stroke(stroke.r, stroke.g, stroke.b, stroke.a);
                 orbit.noFill();
                 for (PVector v : vertices) {
                         orbit.vertex(v.x, v.y, v.z);
+                        
                 }
                 orbit.endShape(CLOSE);
 
+        }
+
+        public PVector getVert(int i){
+                return vertices[i];
+        }
+
+        public PVector[] getVerts(){
+                return vertices;
         }
 
         public void update() {
@@ -90,6 +102,7 @@ public class Orbit extends UIElement {
         }
 
         public void render() {
+         
                 ui.pushMatrix();
                 ui.translate(base.x, base.y, base.z);
                 ui.rotateZ((float)Math.toRadians(orbitAngle));
@@ -97,5 +110,6 @@ public class Orbit extends UIElement {
 
                 ui.shape(orbit);
                 ui.popMatrix();
+              
         }
 }
