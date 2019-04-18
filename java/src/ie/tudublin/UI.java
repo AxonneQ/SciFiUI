@@ -73,7 +73,7 @@ public class UI extends PApplet {
 
         //Processing
         public void settings() {
-                size(1000, 1000, P3D);
+                size(1920, 1080, P3D);
                 //fullScreen();
                 smooth(8);
                 
@@ -120,7 +120,7 @@ public class UI extends PApplet {
                 background(0);
 
                 // stroke(255);
-                //lights();
+                lights();
                 specular(0,124,224);
                 lightFalloff(1.0f, 0.03f, 0.0f);
                 pointLight(255,255,255,width/2, height/2 + 350, -100);

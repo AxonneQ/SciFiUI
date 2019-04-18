@@ -137,13 +137,12 @@ public class Planet extends UIElement {
                         toNext.y += ui.height / 2;
                         toNext.z += -200;
                         float dist = toNext.mag();
-                        toNext.normalize();
-                        if (ui.frameCount % (i + 1) <= 5) {
-
-                                
-
+                       
+                        if (ui.frameCount % (i + 1) <= 1) {
+                                toNext.normalize();
+                                moons.get(i).getPos().add(toNext);
                         }
-                        moons.get(i).getPos().add(toNext);
+
                         if (dist < 1) {
                                 current[i]--;
                         }
@@ -159,7 +158,6 @@ public class Planet extends UIElement {
                 ui.lightFalloff(0.9f, 0f, 0f);
                 ui.pointLight(255, 255, 255, lightPos.x, lightPos.y, lightPos.z);
                 mainPlanet.render();
-                // ui.pointLight(255,255,255, lightPos.x, lightPos.y, lightPos.z);
 
                 // Render its moons if any
                 for (Sphere m : moons) {

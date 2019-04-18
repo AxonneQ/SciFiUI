@@ -30,8 +30,10 @@ public class CustomShape extends UIElement {
                 "TRIANGLES",9,
                 "TRIANGLE_FAN",11,
                 "TRIANGLE_STRIP",10,
-                "QUADS",16,
-                "QUAD_STRIP",18
+                "QUAD",16,
+                "QUADS",17,
+                "QUAD_STRIP",18,
+                "LINE_LOOP", 51
         );
                 
 
