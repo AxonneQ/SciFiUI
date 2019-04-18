@@ -150,7 +150,7 @@ public class Planet extends UIElement {
                 ui.pushMatrix();
 
                 //Render main planet
-                ui.lightFalloff(3f,0f,0f);
+                ui.lightFalloff(0.9f,0f,0f);
                 ui.pointLight(255,255,255, lightPos.x, lightPos.y, lightPos.z);
                 mainPlanet.render();
                // ui.pointLight(255,255,255, lightPos.x, lightPos.y, lightPos.z);
