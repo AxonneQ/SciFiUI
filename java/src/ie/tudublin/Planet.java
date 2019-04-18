@@ -91,17 +91,24 @@ public class Planet extends UIElement {
 
                         }
                 }
-
+                initMoonPos();
                 ui.planets.add(this);
         }
 
-        private void moveMoon() {
-
+        private void initMoonPos() {
+                //Set initial position of moons to be on a random vertex of the orbit (between 0 - 29)
+                for (int i = 0; i < moonCount; i++) {
+                        int rand = (int)ui.random(0, orbitRings.get(i).getVerts().length);
+                        PVector randPosOnOrbit = orbitRings.get(i).getVert(rand);
+                        moons.get(i).setPos(randPosOnOrbit);
+                        current[i] = rand;
+                }
         }
 
         public void update() {
+                
                 for (int i = 0; i < moonCount; i++) {
-                        ui.pushMatrix();
+                        //Decrement to go anti-clockwise around the orbit
                         if(current[i] <= 0){
                                 current[i] = orbitRings.get(i).getVerts().length - 1;
                         }
@@ -110,14 +117,16 @@ public class Planet extends UIElement {
                         toNext.y += ui.height/2;
                         toNext.z += -200;
                         float dist = toNext.mag();
-                        toNext.normalize();
-                        moons.get(i).getPos().add(toNext);
+                        
+                        if(ui.frameCount % (i + 1 ) <= 1){
+                                toNext.normalize();
+                                moons.get(i).getPos().add(toNext);
+                        }
+                        
                         if (dist < 1) {                      
                                         current[i]--;
                         }
-                        ui.popMatrix();
                 }
-
         }
 
         public void render() {
