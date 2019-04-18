@@ -64,8 +64,7 @@ public class Sphere extends UIElement {
         }
 
         public void update() {
-
-
+                
 
         }
 

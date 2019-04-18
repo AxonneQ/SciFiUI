@@ -33,16 +33,7 @@ public class Animation {
         }
 
         static private void rotate(float[] angle) {
-
-                if (angle.length > 2) {
-                        /*ui.translate(-150,-50,0);
-                        ui.rotateY(angle[0] += angle[2]);
-                        ui.translate(150,50,0);*/
- 
-                } else {
                         ui.rotateY(angle[0] += angle[1]);
-                }
-
         }
 
         static private void pulse(float[] vars) {

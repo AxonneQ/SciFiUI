@@ -8,7 +8,6 @@ import ie.tudublin.shapes.Orbit;
 import java.util.Random;
 import java.util.ArrayList;
 
-import processing.core.PApplet;
 //processing
 import processing.core.PVector;
 
@@ -25,7 +24,7 @@ public class Planet extends UIElement {
         private String radiation;
         private float water;
         private int[] current;
-        private float[] rotation;
+        private PVector lightPos;
 
         // Sphere vars
         private Sphere mainPlanet;
@@ -76,14 +75,14 @@ public class Planet extends UIElement {
                         float moonRadius;
                         float randomAngle;
                         current = new int[moonCount];
-                        rotation = new float[moonCount];
+
 
                         for (int i = 0; i < moonCount; i++) {
                                 moonRadius = radius / (ui.random(15) + 5);
                                 randomAngle = min + r.nextFloat() * (max - min);
 
-                                // space out the moons every 30 px
-                                moonPos.x += 30;
+                                // space out the moons every 40 px
+                                moonPos.x += 40;
 
                                 moons.add(new Sphere(ui, new PVector(moonPos.x, moonPos.y, moonPos.z), moonRadius,
                                                 "ROTATE", randomAngle, axisAngle));
@@ -92,6 +91,7 @@ public class Planet extends UIElement {
                         }
                 }
                 initMoonPos();
+                lightPos = generateLightSource();
                 ui.planets.add(this);
         }
 
@@ -103,6 +103,22 @@ public class Planet extends UIElement {
                         moons.get(i).setPos(randPosOnOrbit);
                         current[i] = rand;
                 }
+        }
+
+        private PVector generateLightSource(){
+                PVector randLightSource;
+                if(moonCount > 2){
+                        // if there are more than 2 moons, select random vertex of the last orbit as light source then adjust height to be random.
+                        int rand = (int)ui.random(0, orbitRings.get(moonCount-1).getVerts().length);
+                        randLightSource = orbitRings.get(moonCount-1).getVert(rand);
+                        randLightSource.y = ui.random(-200, 200) + ui.height/2;
+                        randLightSource.x += ui.width/2; 
+                } else {
+                        //else generate a default light source
+                        randLightSource = new PVector(ui.random(-200, 200) + ui.width/2, ui.random(-200, 200) + ui.height/2, ui.random(-50, 50));
+                }
+
+                return randLightSource;
         }
 
         public void update() {
@@ -132,12 +148,19 @@ public class Planet extends UIElement {
         public void render() {
 
                 ui.pushMatrix();
+
+                //Render main planet
+                ui.lightFalloff(3f,0f,0f);
+                ui.pointLight(255,255,255, lightPos.x, lightPos.y, lightPos.z);
                 mainPlanet.render();
- 
+               // ui.pointLight(255,255,255, lightPos.x, lightPos.y, lightPos.z);
+
+                //Render its moons if any
                 for (Sphere m : moons) {
                         m.renderRotated();
                 }
-                
+
+                //Render planet orbit if moons present
                 for (Orbit o : orbitRings) {         
                         o.render();
                 }
