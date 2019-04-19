@@ -21,6 +21,9 @@ public class Planet extends UIElement {
                 public float oxygen;
                 public String radiation;
                 public float water;
+                public String biome;
+
+                ArrayList<String> infoString;
         }
 
         Info info;
@@ -48,6 +51,17 @@ public class Planet extends UIElement {
                 createPlanet();
         }
 
+        private void toInfoString(){
+                info.infoString.add(info.name);
+                info.infoString.add(info.habitable);
+                info.infoString.add(String.valueOf(info.population));
+                info.infoString.add(String.valueOf(info.oxygen));
+                info.infoString.add(String.valueOf(info.water));
+                info.infoString.add(info.radiation);
+                info.infoString.add(String.valueOf(info.moonCount));
+                info.infoString.add(info.biome);
+        }
+
         private void createPlanet() {
                 String delimiter = ":";
 
@@ -63,6 +77,10 @@ public class Planet extends UIElement {
                 info.oxygen = Float.parseFloat(rawData[9]);
                 info.radiation = rawData[10];
                 info.water = Float.parseFloat(rawData[11]);
+                info.biome = rawData[12];
+
+                info.infoString = new ArrayList<String>();
+                toInfoString();
 
                 // Sphere
                 position = new PVector(ui.width / 2, ui.height / 2, -200); // position the planet in the middle of

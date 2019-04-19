@@ -1,3 +1,3 @@
-# PLANET,Name,Radius,2D position,Rotation,Angle,Moon count,Habitable,Population,Oxygen,Radiation,Water
-PLANET,Trilia 8H,100,04:03,0.01,20,5,Yes,5000000,30,Minimal,10
-# PLANET,Chars A83,,,,,,,,,,
+# PLANET,Name,Radius,2D position,Rotation,Angle,Moon count,Habitable,Population,Oxygen,Radiation,Water,Biome
+PLANET,Trilia 8H,100,04:03,0.01,20,5,Yes,5000000,30,Minimal,10,Desert
+# PLANET,Chars A83,,,,,,,,,,,

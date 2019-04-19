@@ -4,13 +4,21 @@ import ie.tudublin.Planet.Info;
 import processing.core.PVector;
 
 public class PlanetMap extends UIElement {
-        private PVector position;
         private int currentPlanet;
         private Info info;
+        private String[] infoPieces = {"Name: ", "Habitable: ", "Population: ", "Oxygen (%): ", "Water (%): ", "Radiation (%): ", "Moon Count: ", "Dominant biome: "};
+        private int textSize;
+        private int lineSpacing;
 
         public PlanetMap(UI ui) {
                 super(ui, "PLANETMAP");
+                currentPlanet = 0;
+                info = ui.planets.get(currentPlanet).info;
+                textSize = 24;
+                ui.textSize(24);
+                lineSpacing = textSize*2;
                 ui.elements.add(this);
+                
         }
 
         public void getInfo(int i){
@@ -18,7 +26,7 @@ public class PlanetMap extends UIElement {
         }
 
         public void update() {
-                getInfo(0);
+                //getInfo(0);
         }
 
         public void render() {
@@ -57,12 +65,16 @@ public class PlanetMap extends UIElement {
                 ui.noStroke();
                 ui.rect(0,0,500,510);
 
-                ui.translate(0,0,2);
+                ui.translate(0,0,10);
                 ui.fill(0,104,224,180);
-               // ui.fill(255,255,255,255);
-               ui.textSize(24);
+      
+                int gap = 0;
+                for(int i = 0; i < infoPieces.length; i++){
+                        //ui.text(infoPieces[i], 25, 40 + gap);
+                        ui.text(infoPieces[i] + "\t" + info.infoString.get(i), 25, 40 + gap);
+                        gap+=lineSpacing;
+                }
 
-                ui.text("Name: " + info.name, 10, 5 + 24);
 
 
                 ui.popMatrix();

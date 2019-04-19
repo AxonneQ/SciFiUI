@@ -125,7 +125,7 @@ public class UI extends PApplet {
                 background(0);
 
 
-                lights();
+                //lights();
                 specular(0,124,224);
                 lightFalloff(1.0f, 0.03f, 0.0f);
                 pointLight(255,255,255,width/2, height/2 + 350, -100);
@@ -133,8 +133,8 @@ public class UI extends PApplet {
                 pointLight(255,255,255,0,height/2,0);
                 
 
-                //lightFalloff(2f, 0.0f, 0.0f);
-                //pointLight(255, 255, 255, mouseX, 305+height/2, 125);
+                lightFalloff(5f, 0.0f, 0.0f);
+                pointLight(255, 255, 255, mouseX, mouseY, 200);
                 
                 
                 if (checkKey('s')) {
