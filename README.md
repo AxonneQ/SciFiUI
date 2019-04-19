@@ -1,12 +1,13 @@
-# SciFi UI Project
+# Object-Oriented Programming Assignment - SciFi UI
 
 Name: **Igor Bolek**
 
 Student Number: **C17487376**
 
-Fork this repository and use it a starter project for your assignment
-
 # Description of the assignment
+We were asked to create a Sci-Fi interface with a variety of animations and effects that could be theorically used in a movie. Demonstration of Polymorphism, Abstraction, Inheritance and Interfaces was also required as well as exploration of Processing framework. I decided to explore 3D renderer adding additional layers of complexity and challenges that were not as easy to overcome compared to 2D renderer.
+
+My idea was to create a spaceship dashboard that would display all nearby planets on semi-transparent screen where a planet can be selected for further inspection. There is also a second screen showing information of currently selected planet, and a hologram displaying that planet with its moons and orbit. I wanted to experiment with lighting, rotation and creation of custom shapes. Ultimately, this allowed me to create an effect impossible to achieve in 2D renderer.
 
 # Instructions
 
