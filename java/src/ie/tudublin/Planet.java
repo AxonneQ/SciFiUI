@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import processing.core.PVector;
 
 public class Planet extends UIElement {
-        private String name;
+        public String name;
         private float radius;
         private PVector mapPosition;
         private float rotationAngle;

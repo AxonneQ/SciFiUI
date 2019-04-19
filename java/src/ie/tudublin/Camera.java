@@ -26,9 +26,9 @@ public class Camera {
 
         public void moveEye(float x, float y, float z) {
                 ui.camera(
-                        position.x = this.width - ((x - this.width) / 10), 
-                        position.y = this.height - ((y - this.height) / 10),
-                        position.z = distance + (z * 25),
+                        position.x = this.width - ((x - this.width) / 3), 
+                        position.y = this.height - ((y - this.height) / 3),
+                        position.z = distance + (z * 30),
                         this.width,
                         this.height,
                         0f, 

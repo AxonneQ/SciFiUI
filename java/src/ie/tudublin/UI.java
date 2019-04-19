@@ -44,7 +44,7 @@ public class UI extends PApplet {
 
         public void mouseWheel(MouseEvent event) {
                 destinationPos = currentPos + event.getCount() * 5;
-               /* if (destinationPos > 10) {
+              /* if (destinationPos > 10) {
                         destinationPos = 10;
                 }
                 if (destinationPos < -20) {
@@ -76,10 +76,12 @@ public class UI extends PApplet {
                 size(1920, 1080, P3D);
                 //fullScreen();
                 smooth(8);
+
                 
 
         }
         PShape ray;
+        PlanetMap map;
         public void setup() {
                
                 // Load all shapes from csv file
@@ -92,9 +94,12 @@ public class UI extends PApplet {
                 //hint(DISABLE_DEPTH_TEST); 
                 //hint(DISABLE_DEPTH_SORT); 
            
+                textMode(SHAPE);
+
                 cam = new Camera(this);
                 animation = new Animation(this);
                 cursor = new MousePicker(this, cam, projectionMatrix);
+                map = new PlanetMap(this);
                 
 
                 ray = new PShape();
