@@ -14,6 +14,7 @@ import org.lwjgl.util.vector.Matrix4f;
 
 //processing
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.core.PShape;
 import processing.event.MouseEvent;
 
@@ -28,6 +29,7 @@ public class UI extends PApplet {
         Camera cam;
         Animation animation;
         MousePicker cursor;
+        PFont font;
 
         //Input functions
         public void keyPressed() {
@@ -94,12 +96,15 @@ public class UI extends PApplet {
                 //hint(DISABLE_DEPTH_TEST); 
                 //hint(DISABLE_DEPTH_SORT); 
            
-                textMode(SHAPE);
+   
 
                 cam = new Camera(this);
                 animation = new Animation(this);
                 cursor = new MousePicker(this, cam, projectionMatrix);
                 map = new PlanetMap(this);
+                font = createFont("Arial", 24*4);
+                textFont(font);
+                textMode(MODEL);
                 
 
                 ray = new PShape();

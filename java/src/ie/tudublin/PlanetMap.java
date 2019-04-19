@@ -1,12 +1,13 @@
 package ie.tudublin;
 
 import ie.tudublin.Planet.Info;
+import processing.core.PFont;
 import processing.core.PVector;
 
 public class PlanetMap extends UIElement {
         private int currentPlanet;
         private Info info;
-        private String[] infoPieces = {"Name: ", "Habitable: ", "Population: ", "Oxygen (%): ", "Water (%): ", "Radiation (%): ", "Moon Count: ", "Dominant biome: "};
+        private String[] infoPieces = {"Name: ", "Habitable: ", "Population: ", "Oxygen (%): ", "Water (%): ", "Radiation: ", "Moon Count: ", "Biome: "};
         private int textSize;
         private int lineSpacing;
 
@@ -14,8 +15,8 @@ public class PlanetMap extends UIElement {
                 super(ui, "PLANETMAP");
                 currentPlanet = 0;
                 info = ui.planets.get(currentPlanet).info;
-                textSize = 24;
-                ui.textSize(24);
+                textSize = 24*4;
+                //ui.textSize(24);
                 lineSpacing = textSize*2;
                 ui.elements.add(this);
                 
@@ -67,11 +68,10 @@ public class PlanetMap extends UIElement {
 
                 ui.translate(0,0,10);
                 ui.fill(0,104,224,180);
-      
+                ui.scale(0.25f);
                 int gap = 0;
                 for(int i = 0; i < infoPieces.length; i++){
-                        //ui.text(infoPieces[i], 25, 40 + gap);
-                        ui.text(infoPieces[i] + "\t" + info.infoString.get(i), 25, 40 + gap);
+                        ui.text(infoPieces[i] +  "\t" + info.infoString.get(i), 20*4, 40*4 + gap);
                         gap+=lineSpacing;
                 }
 
