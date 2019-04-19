@@ -1,18 +1,24 @@
 package ie.tudublin;
 
+import ie.tudublin.Planet.Info;
 import processing.core.PVector;
 
 public class PlanetMap extends UIElement {
         private PVector position;
         private int currentPlanet;
+        private Info info;
 
         public PlanetMap(UI ui) {
                 super(ui, "PLANETMAP");
                 ui.elements.add(this);
         }
 
-        public void update() {
+        public void getInfo(int i){
+                info = ui.planets.get(i).info;
+        }
 
+        public void update() {
+                getInfo(0);
         }
 
         public void render() {
@@ -56,7 +62,7 @@ public class PlanetMap extends UIElement {
                // ui.fill(255,255,255,255);
                ui.textSize(24);
 
-                ui.text("Name: " + ui.planets.get(currentPlanet).name, 10, 5 + 24);
+                ui.text("Name: " + info.name, 10, 5 + 24);
 
 
                 ui.popMatrix();

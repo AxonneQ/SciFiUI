@@ -12,17 +12,22 @@ import java.util.ArrayList;
 import processing.core.PVector;
 
 public class Planet extends UIElement {
-        public String name;
+        public class Info {
+                public String name;
+                public PVector mapPosition;
+                public int moonCount;
+                public String habitable;
+                public long population;
+                public float oxygen;
+                public String radiation;
+                public float water;
+        }
+
+        Info info;
+        
         private float radius;
-        private PVector mapPosition;
         private float rotationAngle;
         private float axisAngle;
-        private int moonCount;
-        private String habitable;
-        private long population;
-        private float oxygen;
-        private String radiation;
-        private float water;
         private int[] current;
         private PVector lightPos;
 
@@ -39,24 +44,25 @@ public class Planet extends UIElement {
         public Planet(UI ui, String[] rawData) {
                 super(ui, rawData[0]);
                 this.rawData = rawData;
+                info = new Info();
                 createPlanet();
         }
 
         private void createPlanet() {
                 String delimiter = ":";
 
-                name = rawData[1];
+                info.name = rawData[1];
                 radius = Float.parseFloat(rawData[2]);
-                mapPosition = new PVector(Float.parseFloat(rawData[3].split(delimiter)[0]),
+                info.mapPosition = new PVector(Float.parseFloat(rawData[3].split(delimiter)[0]),
                                 Float.parseFloat(rawData[3].split(delimiter)[1]));
                 rotationAngle = Float.parseFloat(rawData[4]);
                 axisAngle = Float.parseFloat(rawData[5]);
-                moonCount = Integer.parseInt(rawData[6]);
-                habitable = rawData[7];
-                population = Long.parseLong(rawData[8]);
-                oxygen = Float.parseFloat(rawData[9]);
-                radiation = rawData[10];
-                water = Float.parseFloat(rawData[11]);
+                info.moonCount = Integer.parseInt(rawData[6]);
+                info.habitable = rawData[7];
+                info.population = Long.parseLong(rawData[8]);
+                info.oxygen = Float.parseFloat(rawData[9]);
+                info.radiation = rawData[10];
+                info.water = Float.parseFloat(rawData[11]);
 
                 // Sphere
                 position = new PVector(ui.width / 2, ui.height / 2, -200); // position the planet in the middle of
@@ -68,15 +74,15 @@ public class Planet extends UIElement {
 
                 mainPlanet = new Sphere(ui, position, radius, "ROTATE", rotationAngle, axisAngle);
 
-                if (moonCount > 0) {
+                if (info.moonCount > 0) {
                         Random r = new Random();
                         float min = 0.0005f;
                         float max = 0.005f;
                         float moonRadius;
                         float randomAngle;
-                        current = new int[moonCount];
+                        current = new int[info.moonCount];
 
-                        for (int i = 0; i < moonCount; i++) {
+                        for (int i = 0; i < info.moonCount; i++) {
                                 moonRadius = radius / (ui.random(15) + 5);
                                 randomAngle = min + r.nextFloat() * (max - min);
 
@@ -97,7 +103,7 @@ public class Planet extends UIElement {
         private void initMoonPos() {
                 // Set initial position of moons to be on a random vertex of the orbit (between
                 // 0 - 29)
-                for (int i = 0; i < moonCount; i++) {
+                for (int i = 0; i < info.moonCount; i++) {
                         int rand = (int) ui.random(0, orbitRings.get(i).getVerts().length);
                         PVector randPosOnOrbit = orbitRings.get(i).getVert(rand);
                         moons.get(i).setPos(randPosOnOrbit);
@@ -107,13 +113,13 @@ public class Planet extends UIElement {
 
         private PVector generateLightSource() {
                 PVector randLightSource;
-                if (moonCount > 2) {
+                if (info.moonCount > 2) {
                         // if there are more than 2 moons, select random vertex of the last orbit as
                         // light source then adjust height to be random.
-                        int rand = (int) ui.random(0, orbitRings.get(moonCount - 1).getVerts().length);
-                        randLightSource = new PVector(orbitRings.get(moonCount - 1).getVert(rand).x,
-                        orbitRings.get(moonCount - 1).getVert(rand).y,
-                        orbitRings.get(moonCount - 1).getVert(rand).z);     
+                        int rand = (int) ui.random(0, orbitRings.get(info.moonCount - 1).getVerts().length);
+                        randLightSource = new PVector(orbitRings.get(info.moonCount - 1).getVert(rand).x,
+                        orbitRings.get(info.moonCount - 1).getVert(rand).y,
+                        orbitRings.get(info.moonCount - 1).getVert(rand).z);     
                         randLightSource.y += ui.random(-200, 200) + ui.height / 2;
                         randLightSource.x += ui.width / 2;
                 } else {
@@ -127,7 +133,7 @@ public class Planet extends UIElement {
 
         public void update() {
 
-                for (int i = 0; i < moonCount; i++) {
+                for (int i = 0; i < info.moonCount; i++) {
                         // Decrement to go anti-clockwise around the orbit
                         if (current[i] <= 0) {
                                 current[i] = orbitRings.get(i).getVerts().length - 1;
