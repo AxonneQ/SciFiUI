@@ -14,13 +14,13 @@ import org.lwjgl.util.vector.Matrix4f;
 
 //processing
 import processing.core.PApplet;
-import processing.core.PFont;
 import processing.core.PShape;
 import processing.event.MouseEvent;
 
 public class UI extends PApplet {
         // Input vars:
         boolean[] keys = new boolean[1024];
+        int previousKey;
         float currentPos;
         float destinationPos;
 
@@ -28,10 +28,12 @@ public class UI extends PApplet {
         Camera cam;
         Animation animation;
         MousePicker cursor;
+        int timer = millis();
 
         // Input functions
         public void keyPressed() {
                 keys[keyCode] = true;
+                map.keyPress(keyCode);
         }
 
         public void keyReleased() {
@@ -51,7 +53,6 @@ public class UI extends PApplet {
                 if (destinationPos < -20) {
                         destinationPos = -20;
                 }
-
         }
 
         public void mousePressed() {
@@ -73,7 +74,6 @@ public class UI extends PApplet {
                 size(1920, 1080, P3D);
                 // fullScreen();
                 smooth(8);
-
         }
 
         PShape ray;
@@ -140,8 +140,6 @@ public class UI extends PApplet {
                         }
                 }
 
-                // spotLight(255, 255, 255, mouseX, mouseY, 0, 0, 1, 0, 30, 10000);
-                // spotLight(255, 255, 255, width/2, height/2, -200, 0, 1, 0, PI/16, 2);
                 String prev = "";
                 for (UIElement e : elements) {
                         // Render an active planet before hologram cones get rendered.

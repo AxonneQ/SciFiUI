@@ -41,16 +41,26 @@ public class PlanetMap extends UIElement {
                 info = ui.planets.get(i).info;
         }
 
-        public void update() {
-                if(ui.mousePressed){
-                        
-                        ui.delay(100);
+        public void keyPress(int key){
+                if(key == 'C'){
                         ui.planets.get(currentPlanet).isActive = false;
                         currentPlanet = (currentPlanet + 1) % ui.planets.size();
                         ui.planets.get(currentPlanet).isActive = true;
-                        info = ui.planets.get(currentPlanet).info;
+                        info = ui.planets.get(currentPlanet).info;                      
                 }
-                // getInfo(0);
+                if(key == 'V'){
+                        ui.planets.get(currentPlanet).isActive = false;
+                        currentPlanet = currentPlanet - 1;
+                        if(currentPlanet < 0){
+                                currentPlanet = ui.planets.size() - 1;
+                        }
+                        ui.planets.get(currentPlanet).isActive = true;
+                        info = ui.planets.get(currentPlanet).info;                      
+                }
+        }
+
+        public void update() {
+             
         }
 
         public void render() {
@@ -71,20 +81,33 @@ public class PlanetMap extends UIElement {
                 ui.translate(-800 + ui.width / 2, -200 + ui.height / 2, 50);
                 ui.rotateY((float) Math.toRadians(30));
 
-                // load from file:
+        
                 ui.fill(0, 0, 0, 120);
+
                 ui.noStroke();
                 ui.rect(0, 0, 500, 410);
+                ui.stroke(255,0,0,50);
+                ui.line(250,0,250,410);
+                ui.line(0,205,500,205);
+                ui.noFill();
+                for(int i = 0; i < 5 ; i++){
+                        ui.ellipse(250,205,100*i,100*i);
+                }
+
+
 
                 for(Planet p : ui.planets) {
                         PVector v = new PVector(p.info.mapPosition.x, p.info.mapPosition.y);
                         ui.pushMatrix();
                         ui.translate(v.x*10, v.y*10, 2);
-                        ui.fill(255);
+                        ui.stroke(150,0,0,150);
+                        ui.noFill();
                         ui.sphere(5);
 
                         if(p.isActive){
-                                ui.ellipse(0,0,20,20);
+                                ui.stroke(255);
+                                ui.fill(255);
+                                ui.ellipse(0,0,25,25);
                         }
 
                         ui.popMatrix();
