@@ -1,3 +1,31 @@
 # PLANET,Name,Radius,2D position,Rotation,Angle,Moon count,Habitable,Population,Oxygen,Radiation,Water,Biome
-PLANET,Trilia 8H,100,04:03,0.01,20,5,Yes,5000000,30,Minimal,10,Desert
-# PLANET,Chars A83,,,,,,,,,,,
+PLANET,Trilia 8H,100,4:3,0.01,20,5,Yes,5000000,30,Minimal,10,Desert
+PLANET,Chars A83,76,10:4,0.03,-10,2,No,10,2,Moderate,20,Wasteland
+PLANET,Lanor,57,14:2,0.005,27,1,Yes,300000,60,Minimal,95,Water
+PLANET,Esoid,,,,,,,,,,,
+PLANET,Zemtos-V51,,,,,,,,,,,
+PLANET,Adullore,,,,,,,,,,,
+PLANET,Pexenbula,,,,,,,,,,,
+PLANET,Metozar-V,,,,,,,,,,,
+PLANET,Perusvania-RX,,,,,,,,,,,
+PLANET,Delroid-M5,,,,,,,,,,,
+PLANET,Restica,,,,,,,,,,,
+PLANET,Glaknus,,,,,,,,,,,
+PLANET,Xanenoid-K2,,,,,,,,,,,
+PLANET,S9402-2B,,,,,,,,,,,
+PLANET,Dimru,,,,,,,,,,,
+PLANET,Metlon-P,,,,,,,,,,,
+PLANET,Timgua,,,,,,,,,,,
+PLANET,Nadzar,,,,,,,,,,,
+PLANET,Limeloid-C8,,,,,,,,,,,
+PLANET,,,,,,,,,,,,
+PLANET,,,,,,,,,,,,
+PLANET,,,,,,,,,,,,
+PLANET,,,,,,,,,,,,
+PLANET,,,,,,,,,,,,
+PLANET,,,,,,,,,,,,
+PLANET,,,,,,,,,,,,
+PLANET,,,,,,,,,,,,
+PLANET,,,,,,,,,,,,
+PLANET,,,,,,,,,,,,
+PLANET,,,,,,,,,,,,

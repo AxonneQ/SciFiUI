@@ -29,7 +29,7 @@ public class PlanetMap extends UIElement {
                 info = ui.planets.get(currentPlanet).info;
                 createFrame();
 
-                textSize = 18 * 4;
+                textSize = 24 * 4;
                 font = ui.createFont("Potra.ttf", textSize);
                 ui.textFont(font);
                 lineSpacing = textSize * 2;
@@ -42,6 +42,14 @@ public class PlanetMap extends UIElement {
         }
 
         public void update() {
+                if(ui.mousePressed){
+                        
+                        ui.delay(100);
+                        ui.planets.get(currentPlanet).isActive = false;
+                        currentPlanet = (currentPlanet + 1) % ui.planets.size();
+                        ui.planets.get(currentPlanet).isActive = true;
+                        info = ui.planets.get(currentPlanet).info;
+                }
                 // getInfo(0);
         }
 
@@ -50,6 +58,7 @@ public class PlanetMap extends UIElement {
                 ui.pushMatrix();
 
                 drawMap();
+
 
                 drawInfo();
                 ui.popMatrix();
@@ -66,6 +75,22 @@ public class PlanetMap extends UIElement {
                 ui.fill(0, 0, 0, 120);
                 ui.noStroke();
                 ui.rect(0, 0, 500, 410);
+
+                for(Planet p : ui.planets) {
+                        PVector v = new PVector(p.info.mapPosition.x, p.info.mapPosition.y);
+                        ui.pushMatrix();
+                        ui.translate(v.x*10, v.y*10, 2);
+                        ui.fill(255);
+                        ui.sphere(5);
+
+                        if(p.isActive){
+                                ui.ellipse(0,0,20,20);
+                        }
+
+                        ui.popMatrix();
+
+                }
+
                 drawFrame();
                 ui.popMatrix();
         }
@@ -73,22 +98,29 @@ public class PlanetMap extends UIElement {
         private void drawInfo() {
                 // Render Info screen
                 ui.pushMatrix();
+
                 ui.translate(375 + ui.width / 2, -200 + ui.height / 2, -200);
+
                 ui.rotateY((float) Math.toRadians(-30));
                 ui.fill(0, 0, 0, 80);
                 ui.noStroke();
                 ui.rect(0, 0, 500, 410);
-                drawFrame();
-                ui.translate(0, 0, 10);
-                ui.fill(255, 0, 0, 180);
 
+                drawFrame();
+
+                ui.translate(0, 0, 5);
+                ui.lightFalloff(1f, 0, 0);
+                ui.pointLight(255,0,0,250,200,100);
+
+                ui.fill(255, 0, 0, 255);
                 ui.scale(0.25f);
                 int gap = 0;
                 for (int i = 0; i < infoPieces.length; i++) {
-                        ui.text(infoPieces[i], 60 * 4, 80 * 4 + gap);
-                        ui.text(info.infoString.get(i), 100 * 12, 80 * 4 + gap);
+                        ui.text(infoPieces[i], 60 * 4, 40 * 4 + gap);
+                        ui.text(info.infoString.get(i), 100 * 12, 40 * 4 + gap);
                         gap += lineSpacing;
                 }
+
 
                 ui.popMatrix();
         }
@@ -113,8 +145,8 @@ public class PlanetMap extends UIElement {
 
                 displayFrame = ui.createShape();
                 displayFrame.beginShape();
-                displayFrame.fill(100);
-                displayFrame.stroke(0,104,224,255);
+                displayFrame.fill(0,122,204,255);
+                displayFrame.noStroke();
                 for (PVector v : verts) {
                         displayFrame.vertex(v.x, v.y, v.z);
                 }

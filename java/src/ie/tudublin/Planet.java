@@ -86,7 +86,7 @@ public class Planet extends UIElement {
                 position = new PVector(ui.width / 2, ui.height / 2, -200); // position the planet in the middle of
                                                                            // hologram projection
                 PVector moonPos = new PVector(position.x + radius, position.y, position.z);
-                isActive = true; // Turn off projection by default
+                isActive = false; // Turn off projection by default
                 moons = new ArrayList<Sphere>();
                 orbitRings = new ArrayList<Orbit>();
 
@@ -177,10 +177,9 @@ public class Planet extends UIElement {
         public void render() {
 
                 ui.pushMatrix();
-
-                // Render main planet
                 ui.lightFalloff(0.9f, 0f, 0f);
                 ui.pointLight(255, 255, 255, lightPos.x, lightPos.y, lightPos.z);
+                // Render main planet
                 mainPlanet.render();
 
                 // Render its moons if any

@@ -104,6 +104,12 @@ public class UIElementLoader {
                                                         elements.add(planet);
                                                         System.out.println("Adding planet: " + lineSegments[1]);
                                                         break;
+                                                
+                                                case "LIGHT":
+                                                        UIElement light = new Light(ui, lineSegments);
+                                                        elements.add(light);
+                                                        System.out.println("Adding planet: " + lineSegments[1]);
+                                                        break;
                                                         
                                                 case "":
                                                         break;
