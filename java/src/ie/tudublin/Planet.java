@@ -17,7 +17,7 @@ public class Planet extends UIElement {
                 public PVector mapPosition;
                 public int moonCount;
                 public String habitable;
-                public long population;
+                public String population;
                 public float oxygen;
                 public String radiation;
                 public float water;
@@ -73,7 +73,7 @@ public class Planet extends UIElement {
                 axisAngle = Float.parseFloat(rawData[5]);
                 info.moonCount = Integer.parseInt(rawData[6]);
                 info.habitable = rawData[7];
-                info.population = Long.parseLong(rawData[8]);
+                info.population = rawData[8];
                 info.oxygen = Float.parseFloat(rawData[9]);
                 info.radiation = rawData[10];
                 info.water = Float.parseFloat(rawData[11]);
