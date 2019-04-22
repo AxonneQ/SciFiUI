@@ -43,12 +43,14 @@ public class PlanetMap extends UIElement {
 
         public void keyPress(int key){
                 if(key == 'C'){
+                        ui.console.holoIsActive = true;
                         ui.planets.get(currentPlanet).isActive = false;
                         currentPlanet = (currentPlanet + 1) % ui.planets.size();
                         ui.planets.get(currentPlanet).isActive = true;
                         info = ui.planets.get(currentPlanet).info;                      
                 }
                 if(key == 'V'){
+                        ui.console.holoIsActive = true;
                         ui.planets.get(currentPlanet).isActive = false;
                         currentPlanet = currentPlanet - 1;
                         if(currentPlanet < 0){
@@ -137,6 +139,7 @@ public class PlanetMap extends UIElement {
 
                 ui.fill(255, 0, 0, 255);
                 ui.scale(0.25f);
+               
                 int gap = 0;
                 for (int i = 0; i < infoPieces.length; i++) {
                         ui.text(infoPieces[i], 60 * 4, 40 * 4 + gap);

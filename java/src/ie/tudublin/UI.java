@@ -14,21 +14,21 @@ import org.lwjgl.util.vector.Matrix4f;
 
 //processing
 import processing.core.PApplet;
+import processing.core.PGraphics;
 import processing.core.PShape;
 import processing.event.MouseEvent;
 
 public class UI extends PApplet {
         // Input vars:
         boolean[] keys = new boolean[1024];
-        int previousKey;
         float currentPos;
         float destinationPos;
+        Console console;
 
         // Utility vars
         Camera cam;
         Animation animation;
         MousePicker cursor;
-        int timer = millis();
 
         // Input functions
         public void keyPressed() {
@@ -46,17 +46,23 @@ public class UI extends PApplet {
 
         public void mouseWheel(MouseEvent event) {
                 destinationPos = currentPos + event.getCount() * 5;
-
+/*
                 if (destinationPos > 10) {
                         destinationPos = 10;
                 }
                 if (destinationPos < -20) {
                         destinationPos = -20;
                 }
+*/
         }
 
         public void mousePressed() {
                 println(cursor.getCurrentRay());
+                fill(255);
+                pushMatrix();
+                translate(mouseX,mouseY,-490);
+                ellipse(0, 0,20,20);
+                popMatrix();
         }
 
         // Storing ALL Elements (Custom, spheres, radars etc..)
@@ -80,7 +86,7 @@ public class UI extends PApplet {
         PlanetMap map;
 
         public void setup() {
-
+                noCursor();
                 // Load all shapes from csv file
                 elements = UIElementLoader.loadUI(this);
                 Matrix4f projectionMatrix = MousePicker.createProjectionMatrix();
@@ -95,6 +101,7 @@ public class UI extends PApplet {
                 animation = new Animation(this);
                 cursor = new MousePicker(this, cam, projectionMatrix);
                 map = new PlanetMap(this);
+                console = new Console(this);
 
                 ray = new PShape();
                 ray = createShape();
@@ -113,6 +120,9 @@ public class UI extends PApplet {
                 // println(cam.toString());
                 cursor.update();
 
+
+
+                pushMatrix();
                 // Clear canvas
                 background(0);
                 lightFalloff(5f, 0.00f, 0.0f);
@@ -155,22 +165,28 @@ public class UI extends PApplet {
                                                 p.render();
                                         }
                                 }
-
                         }
-                        if (!e.type.equals("PLANET") && !e.type.equals("PLANETMAP")) {
+
+                        if(e.type.equals("CONE")){
+                                if(console.holoIsActive){
+                                        e.update();
+                                        e.render();
+                                }
+                        }
+
+                        if (!e.type.equals("PLANET") && !e.type.equals("PLANETMAP") && !e.type.equals("CONE")) {
                                 e.update();
                                 e.render();
                         }
                         prev = e.type;
                 }
+                popMatrix();
 
-                fill(0, 0, 0, 255);
-                noStroke();
-                translate(0, 0, 200);
 
-                stroke(255);
-                fill(255);
-                cursor.drawRay();
+
+
+                //console.update();
+                //console.render();
 
         }
 }
