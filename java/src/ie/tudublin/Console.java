@@ -12,13 +12,19 @@ public class Console {
         public boolean isScanned;
         private float width;
         private float height;
-        PGraphics controls;
-        PShape[] board = new PShape[2];
-        float halfW;
-        float halfH;
-        float timer;
-        PVector relMouse;
-        
+        private PGraphics controls;
+        private PShape board;
+        private float halfW;
+        private float halfH;
+        private float timer;
+        private PVector relMouse;
+
+        // Button colors
+        Color holoCol;
+        Color scanCol;
+        Color nextPlanetCol;
+        Color prevPlanetCol;
+        Color zoomCol;
 
         public Console(UI ui) {
                 this.ui = ui;
@@ -31,36 +37,29 @@ public class Console {
                 relMouse = new PVector(ui.mouseX - halfW, ui.mouseY - halfH);
                 controls = ui.createGraphics(ui.width, ui.height);
                 timer = ui.millis();
+                holoCol = new Color("#c61801ff");
+                scanCol = new Color("#13af15ff");
+                nextPlanetCol = new Color("#c61801ff");
+                prevPlanetCol = new Color("#c61801ff");
+                zoomCol = new Color("#c61801ff");
+
                 createConsole();
         }
 
         private void createConsole() {
-                board[0] = new PShape();
-                board[0] = ui.createShape();
-                board[1] = new PShape();
-                board[1] = ui.createShape();
-                
+                board = new PShape();
+                board = ui.createShape();
 
-                board[0].beginShape();
-                board[0].fill(0, 16, 27, 255);
-                board[0].stroke(27,0,0,255);
-                board[0].vertex(-400, halfH);
-                board[0].vertex(-200, halfH - 150);
-                board[0].vertex(200, halfH - 150);
-                board[0].vertex(400, halfH);
-                board[0].endShape(CLOSE);
+                board.beginShape();
+                board.fill(0, 16, 27, 255);
+                board.stroke(255, 0, 0, 100);
+                board.vertex(-230, halfH);
+                board.vertex(-200, halfH - 150);
+                board.vertex(200, halfH - 150);
+                board.vertex(230, halfH);
+                board.endShape(CLOSE);
 
-                board[1].beginShape();
-                board[1].vertex(-250,halfH - 30);
-                board[1].vertex(-250, halfH - 100);
-                board[1].vertex(250, halfH - 100);
-                board[1].vertex(250, halfH - 30);
-                board[1].endShape(CLOSE);
         }
-
-        
-
-
 
         private void setRelativeMousePos() {
                 relMouse.x = (float) ui.mouseX - halfW;
@@ -71,19 +70,16 @@ public class Console {
                 setRelativeMousePos();
                 ui.pushMatrix();
                 ui.translate(ui.width / 2, ui.height / 2);
-                for(PShape p : board){
-                        ui.shape(p);
-                }
-              
 
-
+                ui.shape(board);
 
                 controls.beginDraw();
                 controls.translate(ui.width / 2, ui.height / 2);
                 controls.fill(255, 255, 255, 100);
                 controls.stroke(255);
+                scanButton();
                 holoStateButton();
-                
+
                 controls.endDraw();
 
                 ui.popMatrix();
@@ -96,39 +92,41 @@ public class Console {
                 controls.clear();
                 ui.noLights();
                 ui.image(controls, 0, 0);
-                
+
                 ui.popMatrix();
 
         }
 
-
-
-
-
         private void holoStateButton() {
-                PVector start = new PVector(0, 300);
+                PVector start = new PVector(-100, halfH-50);
                 PVector dim = new PVector(50, 30);
                 PVector end = new PVector(start.x + dim.x, start.y + dim.y);
-
-                controls.rect(start.x, start.y, dim.x, dim.y);
 
                 if (ui.millis() - timer >= 300) {
                         if (relMouse.x > start.x && relMouse.x < end.x && relMouse.y > start.y && relMouse.y < end.y
                                         && ui.mousePressed && isScanned) {
                                 if (holoIsActive) {
+                                        holoCol = new Color("#c61801ff");
                                         ui.planets.get(ui.map.currentPlanet).isActive = false;
                                         holoIsActive = false;
                                 } else {
+                                        holoCol = new Color("#13af15ff");
                                         ui.planets.get(ui.map.currentPlanet).isActive = true;
                                         holoIsActive = true;
                                 }
                                 timer = ui.millis();
                         }
                 }
+                controls.fill(holoCol.r, holoCol.g, holoCol.b, holoCol.a);
+                controls.rect(start.x, start.y, dim.x, dim.y);
         }
 
         private void nextPlanet() {
+                PVector start = new PVector(0, 300);
+                PVector dim = new PVector(50, 30);
+                PVector end = new PVector(start.x + dim.x, start.y + dim.y);
 
+                controls.rect(start.x, start.y, dim.x, dim.y);
         }
 
         private void prevPlanet() {
@@ -136,6 +134,19 @@ public class Console {
         }
 
         private void scanButton() {
+                PVector start = new PVector(0, halfH - 50);
+                PVector dim = new PVector(50, 30);
+                PVector end = new PVector(start.x + dim.x, start.y + dim.y);
 
+                if (ui.millis() - timer >= 300 && !isScanned) {
+                        if (relMouse.x > start.x && relMouse.x < end.x && relMouse.y > start.y && relMouse.y < end.y
+                                        && ui.mousePressed) {
+                                isScanned = true;
+                                scanCol = new Color("#c61801ff");
+                                timer = ui.millis();
+                        }
+                }
+                controls.fill(scanCol.r, scanCol.g, scanCol.b, scanCol.a);
+                controls.rect(start.x, start.y, dim.x, dim.y);
         }
 }
