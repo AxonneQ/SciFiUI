@@ -53,12 +53,7 @@ public class UI extends PApplet {
         }
 
         public void mousePressed() {
-                println(cursor.getCurrentRay());
-                fill(255);
-                pushMatrix();
-                translate(mouseX, mouseY, -490);
-                ellipse(0, 0, 20, 20);
-                popMatrix();
+              
         }
 
         // Storing ALL Elements (Custom, spheres, radars etc..)
@@ -110,20 +105,21 @@ public class UI extends PApplet {
 
         // Main loop
         public void draw() {
-                render3D();     //render room
-                render2D();     //render GUI
+                render3D(); // render room
+                render2D(); // render GUI
         }
 
         public void render3D() {
                 pushMatrix();
+
                 hint(ENABLE_DEPTH_TEST);
-                cam.on(mouseX, mouseY, currentPos = lerp(currentPos, destinationPos, 0.1f));
+                cam.moveEye(mouseX, mouseY, currentPos = lerp(currentPos, destinationPos, 0.1f));
 
                 background(0);
+
+                //General Lighting
                 lightFalloff(5f, 0.00f, 0.0f);
-
                 ambientLight(0, 124, 204);
-
                 specular(0, 124, 224);
                 lightFalloff(3f, 0.01f, 0.0f);
                 pointLight(255, 255, 255, width / 2, height / 2 + 350, -100);
@@ -131,7 +127,7 @@ public class UI extends PApplet {
                 String prev = "";
                 for (UIElement e : elements) {
                         // Render an active planet before hologram cones get rendered.
-
+                        // To prevent overlapping
                         if (e.type.equals("CONE") && !prev.equals("CONE")) {
 
                                 map.update();
@@ -144,7 +140,7 @@ public class UI extends PApplet {
                                         }
                                 }
                         }
-
+                        // Render cones (hologram illusion only if they are activated)
                         if (e.type.equals("CONE")) {
                                 if (console.holoIsActive) {
                                         e.update();
@@ -152,6 +148,7 @@ public class UI extends PApplet {
                                 }
                         }
 
+                        // Render everything else
                         if (!e.type.equals("PLANET") && !e.type.equals("PLANETMAP") && !e.type.equals("CONE")) {
                                 e.update();
                                 e.render();
@@ -164,9 +161,10 @@ public class UI extends PApplet {
         public void render2D() {
                 pushMatrix();
                 hint(DISABLE_DEPTH_TEST);
-                cam.off();
+                lights();
                 console.update();
                 console.render();
                 popMatrix();
+
         }
 }

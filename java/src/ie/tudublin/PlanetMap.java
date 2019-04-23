@@ -14,7 +14,7 @@ import static processing.core.PConstants.*;
 
 
 public class PlanetMap extends UIElement {
-        private int currentPlanet;
+        public int currentPlanet;
         private Info info;
         private String[] infoPieces = { "Name: ", "Habitable: ", "Population: ", "Oxygen (%): ", "Water (%): ",
                         "Radiation: ", "Moon Count: ", "Biome: " };
@@ -42,23 +42,26 @@ public class PlanetMap extends UIElement {
         }
 
         public void keyPress(int key){
-                if(key == 'C'){
-                        ui.console.holoIsActive = true;
-                        ui.planets.get(currentPlanet).isActive = false;
-                        currentPlanet = (currentPlanet + 1) % ui.planets.size();
-                        ui.planets.get(currentPlanet).isActive = true;
-                        info = ui.planets.get(currentPlanet).info;                      
-                }
-                if(key == 'V'){
-                        ui.console.holoIsActive = true;
-                        ui.planets.get(currentPlanet).isActive = false;
-                        currentPlanet = currentPlanet - 1;
-                        if(currentPlanet < 0){
-                                currentPlanet = ui.planets.size() - 1;
+                if(ui.console.isScanned){
+                        if(key == 'C'){
+                                ui.console.holoIsActive = true;
+                                ui.planets.get(currentPlanet).isActive = false;
+                                currentPlanet = (currentPlanet + 1) % ui.planets.size();
+                                ui.planets.get(currentPlanet).isActive = true;
+                                info = ui.planets.get(currentPlanet).info;                      
                         }
-                        ui.planets.get(currentPlanet).isActive = true;
-                        info = ui.planets.get(currentPlanet).info;                      
+                        if(key == 'V'){
+                                ui.console.holoIsActive = true;
+                                ui.planets.get(currentPlanet).isActive = false;
+                                currentPlanet = currentPlanet - 1;
+                                if(currentPlanet < 0){
+                                        currentPlanet = ui.planets.size() - 1;
+                                }
+                                ui.planets.get(currentPlanet).isActive = true;
+                                info = ui.planets.get(currentPlanet).info;                      
+                        }
                 }
+               
         }
 
         public void update() {
@@ -97,25 +100,27 @@ public class PlanetMap extends UIElement {
                 }
 
 
-
-                for(Planet p : ui.planets) {
-                        PVector v = new PVector(p.info.mapPosition.x, p.info.mapPosition.y);
-                        ui.pushMatrix();
-                        ui.translate(v.x*10, v.y*10, 2);
-                        ui.stroke(150,0,0,150);
-                        ui.noFill();
-                        ui.sphere(5);
-
-                        if(p.isActive){
-                                ui.stroke(255);
-                                ui.fill(255);
-                                ui.ellipse(0,0,25,25);
+                if(ui.console.isScanned){
+                        for(Planet p : ui.planets) {
+                                PVector v = new PVector(p.info.mapPosition.x, p.info.mapPosition.y);
+                                ui.pushMatrix();
+                                ui.translate(v.x*10, v.y*10, 2);
+                                ui.stroke(150,0,0,150);
+                                ui.noFill();
+                                ui.sphere(5);
+        
+                                if(p.isActive){
+                                        ui.stroke(255);
+                                        ui.fill(255);
+                                        ui.ellipse(0,0,25,25);
+                                }
+        
+                                ui.popMatrix();
+        
                         }
-
-                        ui.popMatrix();
-
+        
+                        
                 }
-
                 drawFrame();
                 ui.popMatrix();
         }
@@ -133,20 +138,29 @@ public class PlanetMap extends UIElement {
 
                 drawFrame();
 
-                ui.translate(0, 0, 5);
-                /*ui.lightFalloff(1f, 0, 0);
-                ui.pointLight(255,0,0,250,200,100);*/
                 ui.lights();
-
-                ui.fill(255, 0, 0, 255);
-                ui.scale(0.25f);
-               
-                int gap = 0;
-                for (int i = 0; i < infoPieces.length; i++) {
-                        ui.text(infoPieces[i], 60 * 4, 40 * 4 + gap);
-                        ui.text(info.infoString.get(i), 100 * 12, 40 * 4 + gap);
-                        gap += lineSpacing;
+                if(ui.console.isScanned && ui.console.holoIsActive){
+                        ui.translate(0, 0, 5);
+                        /*ui.lightFalloff(1f, 0, 0);
+                        ui.pointLight(255,0,0,250,200,100);*/
+                        
+        
+                        ui.fill(255, 0, 0, 255);
+                        ui.scale(0.25f);
+                       
+                        int gap = 0;
+                        for (int i = 0; i < infoPieces.length; i++) {
+                                ui.text(infoPieces[i], 60 * 4, 40 * 4 + gap);
+                                ui.text(info.infoString.get(i), 100 * 12, 40 * 4 + gap);
+                                gap += lineSpacing;
+                        }
+                } else if (!ui.console.isScanned) {
+                        ui.translate(0, 0, 5);
+                        ui.fill(255, 0, 0, 255);
+                        ui.scale(0.5f);
+                        ui.text("Scan...", 350, 400);
                 }
+               
 
                 ui.noLights(); 
 
