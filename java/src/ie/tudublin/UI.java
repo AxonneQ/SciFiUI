@@ -46,22 +46,18 @@ public class UI extends PApplet {
 
         public void mouseWheel(MouseEvent event) {
                 destinationPos = currentPos + event.getCount() * 5;
-/*
-                if (destinationPos > 10) {
-                        destinationPos = 10;
-                }
-                if (destinationPos < -20) {
-                        destinationPos = -20;
-                }
-*/
+                /*
+                 * if (destinationPos > 10) { destinationPos = 10; } if (destinationPos < -20) {
+                 * destinationPos = -20; }
+                 */
         }
 
         public void mousePressed() {
                 println(cursor.getCurrentRay());
                 fill(255);
                 pushMatrix();
-                translate(mouseX,mouseY,-490);
-                ellipse(0, 0,20,20);
+                translate(mouseX, mouseY, -490);
+                ellipse(0, 0, 20, 20);
                 popMatrix();
         }
 
@@ -86,7 +82,6 @@ public class UI extends PApplet {
         PlanetMap map;
 
         public void setup() {
-                noCursor();
                 // Load all shapes from csv file
                 elements = UIElementLoader.loadUI(this);
                 Matrix4f projectionMatrix = MousePicker.createProjectionMatrix();
@@ -115,40 +110,23 @@ public class UI extends PApplet {
 
         // Main loop
         public void draw() {
-                // Move camera using mouse
-                cam.moveEye(mouseX, mouseY, currentPos = lerp(currentPos, destinationPos, 0.1f));
-                // println(cam.toString());
-                cursor.update();
+                render3D();     //render room
+                render2D();     //render GUI
+        }
 
-
-
+        public void render3D() {
                 pushMatrix();
-                // Clear canvas
+                hint(ENABLE_DEPTH_TEST);
+                cam.on(mouseX, mouseY, currentPos = lerp(currentPos, destinationPos, 0.1f));
+
                 background(0);
                 lightFalloff(5f, 0.00f, 0.0f);
-                // lights();
+
                 ambientLight(0, 124, 204);
 
                 specular(0, 124, 224);
                 lightFalloff(3f, 0.01f, 0.0f);
                 pointLight(255, 255, 255, width / 2, height / 2 + 350, -100);
-                /*
-                 * pointLight(255, 255, 255, width, height / 2, 0); pointLight(255, 255, 255, 0,
-                 * height / 2, 0);
-                 */
-
-                // lightFalloff(5f, 0.0f, 0.0f);
-                // pointLight(255, 255, 255, mouseX, mouseY, 200);
-
-                if (checkKey('s')) {
-                        for (CustomShape e : custom) {
-                                e.strokeState(true);
-                        }
-                } else {
-                        for (CustomShape e : custom) {
-                                e.strokeState(false);
-                        }
-                }
 
                 String prev = "";
                 for (UIElement e : elements) {
@@ -167,8 +145,8 @@ public class UI extends PApplet {
                                 }
                         }
 
-                        if(e.type.equals("CONE")){
-                                if(console.holoIsActive){
+                        if (e.type.equals("CONE")) {
+                                if (console.holoIsActive) {
                                         e.update();
                                         e.render();
                                 }
@@ -181,12 +159,14 @@ public class UI extends PApplet {
                         prev = e.type;
                 }
                 popMatrix();
+        }
 
-
-
-
-                //console.update();
-                //console.render();
-
+        public void render2D() {
+                pushMatrix();
+                hint(DISABLE_DEPTH_TEST);
+                cam.off();
+                console.update();
+                console.render();
+                popMatrix();
         }
 }

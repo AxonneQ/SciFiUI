@@ -134,8 +134,9 @@ public class PlanetMap extends UIElement {
                 drawFrame();
 
                 ui.translate(0, 0, 5);
-                ui.lightFalloff(1f, 0, 0);
-                ui.pointLight(255,0,0,250,200,100);
+                /*ui.lightFalloff(1f, 0, 0);
+                ui.pointLight(255,0,0,250,200,100);*/
+                ui.lights();
 
                 ui.fill(255, 0, 0, 255);
                 ui.scale(0.25f);
@@ -146,6 +147,8 @@ public class PlanetMap extends UIElement {
                         ui.text(info.infoString.get(i), 100 * 12, 40 * 4 + gap);
                         gap += lineSpacing;
                 }
+
+                ui.noLights(); 
 
 
                 ui.popMatrix();

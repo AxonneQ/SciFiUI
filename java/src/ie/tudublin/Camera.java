@@ -24,7 +24,7 @@ public class Camera {
                 position = new PVector(width, height, distance);
         }
 
-        public void moveEye(float x, float y, float z) {
+        public void on(float x, float y, float z) {
                 ui.camera(
                         position.x = this.width - ((x - this.width) / 3), 
                         position.y = this.height - ((y - this.height) / 3),
@@ -36,8 +36,16 @@ public class Camera {
                         1f, 
                         0f
                 );
-                
-                
+                ui.hint(ui.ENABLE_DEPTH_TEST);
+        }
+
+        public void off(){
+         
+                ui.camera(); 
+                ui.noLights(); 
+                ui.perspective(); 
+                ui.hint(ui.DISABLE_DEPTH_TEST);
+   
         }
 
         public String toString(){
