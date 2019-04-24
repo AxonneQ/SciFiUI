@@ -35,32 +35,36 @@ Originally I wanted to add 3D mouse interaction (mouse picking) to select planet
 # Challenges
 I encountered many problems during this assignment. Here are the main problems I encountered and my solution to them:
 - **Byte Order Mark**. An invisible Unicode character at the beginning of file (EF BB BF or FE FF/FF FE) that contains information for the program reading the file such as Excel, VS Code etc. When parsing the first line, the first comma separated value would also include BOM. For example: 
+
+
 ![BOM1](images/bom1.png)
 
   "SPHERE" being the first value loaded into String and then printed out to console will output "SPHERE" as expected. However, if we wanted to print all entries that begin with "S", then it would get ignored. 
   After many hours of research, the solution was to check the file in HEX Editor to see how many bytes the BOM takes. In my case it was 3 bytes (EF BB BF). I made it so that my parser converts the string into a byte array, extract the first 3 bytes, copy the remainder into new, appropriately sized byte array and conver it back to string using ISO-8859-1 encoding:
   ```Java
-         static private String checkBOM(String s) throws UnsupportedEncodingException {
-                // Convert string to byte array
-                byte[] lineBytes = s.getBytes();
+ static private String checkBOM(String s) throws UnsupportedEncodingException {
+        // Convert string to byte array
+        byte[] lineBytes = s.getBytes();
 
-                // Check if byte array contains Byte Order Mark
-                if ((lineBytes[0] & 0xFF) == 0xEF && (lineBytes[1] & 0xFF) == 0xBB && (lineBytes[2] & 0xFF) == 0xBF) {
-                        // if yes, create new byte array, copy all bytes excluding first 3 and convert
-                        // back to String
-                        byte[] lineBytesNoBOM = new byte[lineBytes.length - 3];
-                        System.arraycopy(lineBytes, 3, lineBytesNoBOM, 0, lineBytesNoBOM.length);
-                        String temp = new String(lineBytesNoBOM, "ISO-8859-1"); // 8-bit ASCII
-                        return temp;
-                } else {
-                        return s;
-                }
+        // Check if byte array contains Byte Order Mark
+        if ((lineBytes[0] & 0xFF) == 0xEF && (lineBytes[1] & 0xFF) == 0xBB && (lineBytes[2] & 0xFF) == 0xBF) {
+                // if yes, create new byte array, copy all bytes excluding first 3 and convert
+                // back to String
+                byte[] lineBytesNoBOM = new byte[lineBytes.length - 3];
+                System.arraycopy(lineBytes, 3, lineBytesNoBOM, 0, lineBytesNoBOM.length);
+                String temp = new String(lineBytesNoBOM, "ISO-8859-1"); // 8-bit ASCII
+                return temp;
+        } else {
+                return s;
         }
+}
   ```
 
 
 
 - **Mouse Picking**. Originally I wanted to create a 3D interaction using ray casting to select planets, rotate them, etc. I ended up wasting days trying to figure out how to implement it and even downloaded specific libraries from the Lightweight Java Game Library (LWJGL) that deals with matrix translations, inversions and other calculations. I followed a tutorial that showed the implementation in that engine, however, I did not fully understand those calculations and ended up deleting all related code and libraries. Instead I decided to create a little 2D console that would contain all the interaction buttons to control the system.
+
+
 ![CONSOLE_IMAGE](images/console.png);
 
 # What I am most proud of in the assignment
