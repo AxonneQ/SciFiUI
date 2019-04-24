@@ -99,7 +99,7 @@ public class UIElementLoader {
                                                 case "LIGHT":
                                                         UIElement light = new Light(ui, lineSegments);
                                                         elements.add(light);
-                                                        System.out.println("Adding planet: " + lineSegments[1]);
+                                                        System.out.println("Adding Light at pos (X:Y:Z): " + lineSegments[2]);
                                                         break;
                                                         
                                                 case "":

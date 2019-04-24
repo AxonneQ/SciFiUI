@@ -80,7 +80,6 @@ public class Console {
                 setRelativeMousePos();
                 ui.pushMatrix();
                 ui.translate(ui.width / 2, ui.height / 2);
-                //ui.lights();
                 ui.shape(board);
 
                 controls.beginDraw();
@@ -132,6 +131,7 @@ public class Console {
                                         powerCol = new Color(GREEN);
                                         scanCol = new Color(GREEN);
                                         isPowered = true;
+                                        ui.map.currentPlanet = 0;
                                 }
                                 timer = ui.millis();
                         }
@@ -188,14 +188,14 @@ public class Console {
         }
 
         private void scanButton() {
-                PVector start = new PVector(-150, halfH-50);
-                PVector dim = new PVector(50, 30);
-                PVector end = new PVector(start.x + dim.x, start.y + dim.y);
+                PVector start = new PVector(-155, halfH-80);
+                PVector dim = new PVector(30, 30);
+                PVector end = new PVector(start.x + dim.x/2, start.y + dim.y/2);
 
                 ui.pushMatrix();
                 
                 if (!isScanned && isPowered) {
-                        if (relMouse.x > start.x && relMouse.x < end.x && relMouse.y > start.y && relMouse.y < end.y
+                        if (relMouse.x > start.x-dim.x/2 && relMouse.x < end.x && relMouse.y > start.y-dim.y/2 && relMouse.y < end.y
                                         && ui.mousePressed) {
                                 scanTimer = ui.millis();
                                 ui.map.isScanning = true;
@@ -209,9 +209,9 @@ public class Console {
                 ui.translate(start.x, start.y -5);
                 ui.scale(0.2f);
                 ui.fill(255,0,0,255);
-                ui.text("SCAN", 0, 0);
+                ui.text("SCAN", 120, 60);
                 ui.popMatrix();
                 controls.fill(scanCol.r, scanCol.g, scanCol.b, scanCol.a);
-                controls.rect(start.x, start.y, dim.x, dim.y);
+                controls.ellipse(start.x, start.y, dim.x, dim.y);
         }
 }

@@ -91,17 +91,21 @@ public class PlanetMap extends UIElement {
                 ui.rotateY((float) Math.toRadians(30));
 
         
-                ui.fill(0, 0, 0, 120);
+                ui.fill(0, 0, 0, 80);
 
                 ui.noStroke();
                 ui.rect(0, 0, 500, 410);
                 ui.stroke(255,0,0,50);
-                ui.line(250,0,250,410);
-                ui.line(0,205,500,205);
-                ui.noFill();
-                for(int i = 0; i < 5 ; i++){
-                        ui.ellipse(250,205,100*i,100*i);
+
+                if(ui.console.isPowered){
+                        ui.line(250,0,250,410);
+                        ui.line(0,205,500,205);
+                        ui.noFill();
+                        for(int i = 0; i < 5 ; i++){
+                                ui.ellipse(250,205,100*i,100*i);
+                        }
                 }
+             
 
                 if(isScanning){
                         radar.render();
