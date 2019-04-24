@@ -24,6 +24,7 @@ public class PlanetMap extends UIElement {
         private PFont font;
         private PShape displayFrame;
         private Radar radar = new Radar(ui, 0.5f, 250f, 205f, 200f);
+        
         public boolean isScanning = false;
 
         public PlanetMap(UI ui) {
@@ -162,11 +163,11 @@ public class PlanetMap extends UIElement {
                                 ui.text(info.infoString.get(i), 100 * 12, 40 * 4 + gap);
                                 gap += lineSpacing;
                         }
-                } else if (!ui.console.isScanned) {
+                } else if (isScanning) {
                         ui.translate(0, 0, 5);
                         ui.fill(255, 0, 0, 255);
                         ui.scale(0.5f);
-                        ui.text("Scan...", 350, 400);
+                        ui.text("Scanning...", 250, 400);
                 }
                
 
