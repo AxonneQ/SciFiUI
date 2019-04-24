@@ -2,6 +2,7 @@ package ie.tudublin;
 
 //local
 import ie.tudublin.Planet.Info;
+import ie.tudublin.shapes.Radar;
 
 //java
 import java.util.ArrayList;
@@ -22,6 +23,8 @@ public class PlanetMap extends UIElement {
         private int lineSpacing;
         private PFont font;
         private PShape displayFrame;
+        private Radar radar = new Radar(ui, 0.5f, 250f, 205f, 200f);
+        public boolean isScanning = false;
 
         public PlanetMap(UI ui) {
                 super(ui, "PLANETMAP");
@@ -98,6 +101,11 @@ public class PlanetMap extends UIElement {
                 for(int i = 0; i < 5 ; i++){
                         ui.ellipse(250,205,100*i,100*i);
                 }
+
+                if(isScanning){
+                        radar.render();
+                }
+
 
 
                 if(ui.console.isScanned){
@@ -200,5 +208,4 @@ public class PlanetMap extends UIElement {
                 ui.shape(displayFrame);
 
         }
-
 }

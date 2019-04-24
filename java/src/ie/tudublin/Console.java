@@ -18,6 +18,7 @@ public class Console {
         private float halfH;
         private float timer;
         private PVector relMouse;
+        private int scanTimer;
 
         // Button colors
         Color holoCol;
@@ -37,6 +38,7 @@ public class Console {
                 relMouse = new PVector(ui.mouseX - halfW, ui.mouseY - halfH);
                 controls = ui.createGraphics(ui.width, ui.height);
                 timer = ui.millis();
+                scanTimer = 0;
                 holoCol = new Color("#c61801ff");
                 scanCol = new Color("#13af15ff");
                 nextPlanetCol = new Color("#c61801ff");
@@ -70,7 +72,7 @@ public class Console {
                 setRelativeMousePos();
                 ui.pushMatrix();
                 ui.translate(ui.width / 2, ui.height / 2);
-
+                //ui.lights();
                 ui.shape(board);
 
                 controls.beginDraw();
@@ -98,10 +100,11 @@ public class Console {
         }
 
         private void holoStateButton() {
-                PVector start = new PVector(-100, halfH-50);
+                PVector start = new PVector(-150, halfH-50);
                 PVector dim = new PVector(50, 30);
                 PVector end = new PVector(start.x + dim.x, start.y + dim.y);
 
+                ui.pushMatrix();
                 if (ui.millis() - timer >= 300) {
                         if (relMouse.x > start.x && relMouse.x < end.x && relMouse.y > start.y && relMouse.y < end.y
                                         && ui.mousePressed && isScanned) {
@@ -117,6 +120,11 @@ public class Console {
                                 timer = ui.millis();
                         }
                 }
+                ui.translate(start.x, start.y -5);
+                ui.scale(0.2f);
+                ui.fill(255,0,0,255);
+                ui.text("ON/OFF", -35, 0);
+                ui.popMatrix();
                 controls.fill(holoCol.r, holoCol.g, holoCol.b, holoCol.a);
                 controls.rect(start.x, start.y, dim.x, dim.y);
         }
@@ -134,18 +142,28 @@ public class Console {
         }
 
         private void scanButton() {
-                PVector start = new PVector(0, halfH - 50);
+                PVector start = new PVector(-50, halfH - 50);
                 PVector dim = new PVector(50, 30);
                 PVector end = new PVector(start.x + dim.x, start.y + dim.y);
-
-                if (ui.millis() - timer >= 300 && !isScanned) {
+                ui.pushMatrix();
+                
+                if (!isScanned) {
                         if (relMouse.x > start.x && relMouse.x < end.x && relMouse.y > start.y && relMouse.y < end.y
                                         && ui.mousePressed) {
-                                isScanned = true;
+                                scanTimer = ui.millis();
+                                ui.map.isScanning = true;
                                 scanCol = new Color("#c61801ff");
-                                timer = ui.millis();
+                        }
+                        if(ui.millis() - scanTimer > 3000 && ui.map.isScanning){
+                                isScanned = true;
+                                ui.map.isScanning = false;
                         }
                 }
+                ui.translate(start.x, start.y -5);
+                ui.scale(0.2f);
+                ui.fill(255,0,0,255);
+                ui.text("SCAN", 0, 0);
+                ui.popMatrix();
                 controls.fill(scanCol.r, scanCol.g, scanCol.b, scanCol.a);
                 controls.rect(start.x, start.y, dim.x, dim.y);
         }

@@ -59,16 +59,7 @@ public class UIElementLoader {
                                                 String shapeDescription = lineSegments[0].trim();
 
                                                 switch (shapeDescription) {
-                                                case "RADAR":
-                                                        UIElement radar = new Radar(ui,
-                                                                        Float.parseFloat(lineSegments[1]),
-                                                                        Float.parseFloat(lineSegments[2]),
-                                                                        Float.parseFloat(lineSegments[3]),
-                                                                        Float.parseFloat(lineSegments[4]));
-                                                        elements.add(radar);
-                                                        System.out.println("Adding shape: " + lineSegments[0]);
-                                                        break;
-
+                                                        
                                                 case "SPHERE":
                                                         UIElement sphere = new Sphere(ui, lineSegments);
                                                         elements.add(sphere);
