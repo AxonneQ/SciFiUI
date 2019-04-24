@@ -158,8 +158,8 @@ public class PlanetMap extends UIElement {
                        
                         int gap = 0;
                         for (int i = 0; i < infoPieces.length; i++) {
-                                ui.text(infoPieces[i], 60 * 4, 40 * 4 + gap);
-                                ui.text(info.infoString.get(i), 100 * 12, 40 * 4 + gap);
+                                ui.text(infoPieces[i], 45 * 4, 40 * 4 + gap);
+                                ui.text(info.infoString.get(i), 90 * 12, 40 * 4 + gap);
                                 gap += lineSpacing;
                         }
                 } else if (isScanning) {

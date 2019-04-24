@@ -88,7 +88,7 @@ public class Console {
                 controls.beginDraw();
                 controls.translate(ui.width / 2, ui.height / 2);
                 controls.fill(255, 255, 255, 100);
-                controls.stroke(255);
+                controls.noStroke();
                 powerStateButton();
                 scanButton();
                 holoStateButton();
@@ -115,7 +115,7 @@ public class Console {
 
         private void powerStateButton() {
                 PVector start = new PVector(-150, halfH-125);
-                PVector dim = new PVector(30, 30);
+                PVector dim = new PVector(30, 25);
                 PVector end = new PVector(start.x + dim.x/2, start.y + dim.y/2);
 
                 ui.pushMatrix();
@@ -153,7 +153,7 @@ public class Console {
 
         private void holoStateButton() {
                 PVector start = new PVector(-160, halfH-35);
-                PVector dim = new PVector(30, 30);
+                PVector dim = new PVector(30, 25);
                 PVector end = new PVector(start.x + dim.x/2, start.y + dim.y/2);
 
                 ui.pushMatrix();
@@ -189,7 +189,7 @@ public class Console {
 
         private void nextPlanet() {
                 PVector start = new PVector(130, halfH-115);
-                PVector dim = new PVector(30, 30);
+                PVector dim = new PVector(30, 25);
                 PVector end = new PVector(start.x + dim.x/2, start.y + dim.y/2);
 
                 ui.pushMatrix();
@@ -217,7 +217,7 @@ public class Console {
 
         private void prevPlanet() {
                 PVector start = new PVector(80, halfH-115);
-                PVector dim = new PVector(30, 30);
+                PVector dim = new PVector(30, 25);
                 PVector end = new PVector(start.x + dim.x/2, start.y + dim.y/2);
 
                 ui.pushMatrix();
@@ -245,7 +245,7 @@ public class Console {
 
         private void zoom(){
                 PVector start = new PVector(160, halfH-35);
-                PVector dim = new PVector(30, 30);
+                PVector dim = new PVector(30, 25);
                 PVector end = new PVector(start.x + dim.x/2, start.y + dim.y/2);
 
                 ui.pushMatrix();
@@ -255,11 +255,21 @@ public class Console {
                                         && ui.mousePressed) {
                                 if(ui.millis() - timer >= 300){
                                         if(isZoomed) {
-                                                ui.destinationPos = 10;
+                                                if(ui.fullscreen){
+                                                        ui.destinationPos = -5;
+                                                } else {
+                                                        ui.destinationPos = 10;
+                                                }
+                                                
                                                 zoomCol = new Color(RED);
                                                 isZoomed = false;
                                         } else {
-                                                ui.destinationPos = -20;
+                                                if(ui.fullscreen){
+                                                        ui.destinationPos = -30;
+                                                } else {
+                                                        ui.destinationPos = -20;
+                                                }
+                                
                                                 zoomCol = new Color(GREEN);
                                                 isZoomed = true;
                                         }
@@ -281,7 +291,7 @@ public class Console {
 
         private void scanButton() {
                 PVector start = new PVector(-155, halfH-80);
-                PVector dim = new PVector(30, 30);
+                PVector dim = new PVector(30, 25);
                 PVector end = new PVector(start.x + dim.x/2, start.y + dim.y/2);
 
                 ui.pushMatrix();

@@ -1,31 +1,31 @@
 # PLANET,Name,Radius,2D position,Rotation,Angle,Moon count,Habitable,Population,Oxygen,Radiation,Water,Biome
-PLANET,Trilia 8H,100,4:3,0.01,20,5,Yes,7'910'800,11,Minimal,10,Desert
-PLANET,Chars A83,76,10:4,0.02,-10,2,No,140,8,Moderate,20,Wasteland
-PLANET,Lanor,57,14:2,0.005,27,1,Yes,9'956'000,28,Minimal,95,Water
-PLANET,Esoid,80,15:5,0.008,-30,3,No,320,44,High,5,Stoneland
-PLANET,Zemtos-V51,120,21:2,0.003,45,4,Yes,6'639'600,40,Minimal,30,Grass Plains
-PLANET,Adullore,20,24:6,0.01,5,1,No,120,61,Minimal,0,Desert
-PLANET,Pexenbula,40,30:8,0.02,28,2,Yes,4'996'700,10,Moderate,5,Stoneland
-PLANET,Metozar-V,67,35:2,0.017,10,3,No,360,34,Extremely High,10,Wasteland
-PLANET,Perusvania-RX,92,38:7,0.003,-40,0,No,70,33,Extremely High,2,Scrapland
-PLANET,Delroid-M5,105,45:10,0.012,-35,4,Yes,9'067'200,25,Moderate,14,Desert
-PLANET,Restica,84,47:14,0.003,12,0,Yes,6'295'300,20,Minimal,47,Forest
-PLANET,Glaknus,43,38:16,0.013,-19,2,Yes,735'900,28,Minimal,27,Dense Forest
-PLANET,Xanenoid-K2,19,37:20,0.004,7,0,No,270,52,Extremely High,68,Wasteland
-PLANET,S9402-2B,39,35:19,0.005,-35,6,No,120,78,Extremely High,26,Wasteland
-PLANET,Dimru,85,32:15,0.015,35,3,Yes,4'174'000,15,Minimal,44,Taiga
-PLANET,Metlon-P,45,24:12,0.003,-22,2,No,370,12,High,2,Desert
-PLANET,Timgua,69,22:16,0.009,17,4,Yes,1'281'700,43,Minimal,62,Grass Plains
-PLANET,Nadzar,94,18:15,0.002,9,0,Yes,280'500,39,Moderate,15,Desert
-PLANET,Limeloid-C8,32,10:8,0.018,20,5,Yes,6'196'700,9,Low,66,Aquatic
-PLANET,Cinlore-E4,75,5:7,0.017,15,5,Yes,9'153'300,20,Low,69,Aquatic
-PLANET,Katrad,49,5:20,0.015,22,6,No,330,9,Low,17,Desert
-PLANET,Perlis System,94,7:24,0.016,-13,6,No,470,68,High,41,Wasteland
-PLANET,Delusia Cluster,55,9:30,0.005,-11,1,No,300,65,Extremely High,60,Scrapland
-PLANET,Fretos-X1,58,15:32,0.013,-30,1,Yes,6'845'600,5,Low,36,Barrens
-PLANET,Petgua-12,78,20:15,0.005,11,3,No,200,48,Extremely High,20,Desert
-PLANET,Avisbula,68,29:29,0.001,17,5,No,480,68,High,54,Forest
-PLANET,Qurind-X,41,35:30,0.016,-30,5,No,330,29,High,22,Desert
-PLANET,Mupelium,29,40:29,0.001,-33,4,Yes,3'118'900,37,Low,56,Taiga
-PLANET,Metussuk,89,15:30,0.002,-21,3,Yes,1'183'700,36,Minimal,31,Grass Plains
-PLANET,Zynerth,95,32:25,0.017,7,6,No,150,63,Extremely High,48,Wasteland
+PLANET,Trilia 8H,100,4:5,0.01,20,5,Yes,7'910'800,11,Minimal,10,Desert
+PLANET,Chars A83,76,10:6,0.02,-10,2,No,140,8,Moderate,20,Wasteland
+PLANET,Lanor,57,14:4,0.005,27,1,Yes,9'956'000,28,Minimal,95,Water
+PLANET,Esoid,80,15:7,0.008,-30,3,No,320,44,High,5,Stoneland
+PLANET,Zemtos-V51,120,21:4,0.003,45,4,Yes,6'639'600,40,Minimal,30,Grass Plains
+PLANET,Adullore,20,24:8,0.01,5,1,No,120,61,Minimal,0,Desert
+PLANET,Pexenbula,40,30:10,0.02,28,2,Yes,4'996'700,10,Moderate,5,Stoneland
+PLANET,Metozar-V,67,35:4,0.017,10,3,No,360,34,Extremely High,10,Wasteland
+PLANET,Perusvania-RX,92,38:9,0.003,-40,0,No,70,33,Extremely High,2,Scrapland
+PLANET,Delroid-M5,105,45:12,0.012,-35,4,Yes,9'067'200,25,Moderate,14,Desert
+PLANET,Restica,84,47:16,0.003,12,0,Yes,6'295'300,20,Minimal,47,Forest
+PLANET,Glaknus,43,38:18,0.013,-19,2,Yes,735'900,28,Minimal,27,Dense Forest
+PLANET,Xanenoid-K2,19,37:22,0.004,7,0,No,270,52,Extremely High,68,Wasteland
+PLANET,S9402-2B,39,35:21,0.005,-35,6,No,120,78,Extremely High,26,Wasteland
+PLANET,Dimru,85,32:17,0.015,35,3,Yes,4'174'000,15,Minimal,44,Taiga
+PLANET,Metlon-P,45,24:14,0.003,-22,2,No,370,12,High,2,Desert
+PLANET,Timgua,69,22:18,0.009,17,4,Yes,1'281'700,43,Minimal,62,Grass Plains
+PLANET,Nadzar,94,18:17,0.002,9,0,Yes,280'500,39,Moderate,15,Desert
+PLANET,Limeloid-C8,32,10:10,0.018,20,5,Yes,6'196'700,9,Low,66,Aquatic
+PLANET,Cinlore-E4,75,5:9,0.017,15,5,Yes,9'153'300,20,Low,69,Aquatic
+PLANET,Katrad,49,5:22,0.015,22,6,No,330,9,Low,17,Desert
+PLANET,Perlis System,94,7:26,0.016,-13,6,No,470,68,High,41,Wasteland
+PLANET,Delusia Cluster,55,9:32,0.005,-11,1,No,300,65,Extremely High,60,Scrapland
+PLANET,Fretos-X1,58,15:34,0.013,-30,1,Yes,6'845'600,5,Low,36,Barrens
+PLANET,Petgua-12,78,20:17,0.005,11,3,No,200,48,Extremely High,20,Desert
+PLANET,Avisbula,68,29:31,0.001,17,5,No,480,68,High,54,Forest
+PLANET,Qurind-X,41,35:32,0.016,-30,5,No,330,29,High,22,Desert
+PLANET,Mupelium,29,40:31,0.001,-33,4,Yes,3'118'900,37,Low,56,Taiga
+PLANET,Metussuk,89,15:32,0.002,-21,3,Yes,1'183'700,36,Minimal,31,Grass Plains
+PLANET,Zynerth,95,32:27,0.017,7,6,No,150,63,Extremely High,48,Wasteland

@@ -9,6 +9,7 @@ import ie.tudublin.shapes.*;
 
 //java
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import org.lwjgl.util.vector.Matrix4f;
 
@@ -22,25 +23,33 @@ public class UI extends PApplet {
         // Input vars:
         boolean[] keys = new boolean[1024];
         float currentPos;
-        float destinationPos;
+        float destinationPos = -5;
         Console console;
 
         // Utility vars
         Camera cam;
         Animation animation;
         MousePicker cursor;
+        boolean fullscreen = false;
 
         // Input functions
         public void mouseWheel(MouseEvent event) {
                 destinationPos = currentPos + event.getCount() * 5;
-
-                if (destinationPos > 10) {
-                        destinationPos = 10;
+                if (fullscreen) {
+                        if (destinationPos > -5) {
+                                destinationPos = -5;
+                        }
+                        if (destinationPos < -30) {
+                                destinationPos = -30;
+                        }
+                } else {
+                        if (destinationPos > 10) {
+                                destinationPos = 10;
+                        }
+                        if (destinationPos < -20) {
+                                destinationPos = -20;
+                        }
                 }
-                if (destinationPos < -20) {
-                        destinationPos = -20;
-                }
-
         }
 
         // Storing ALL Elements (Custom, spheres, radars etc..)
@@ -55,9 +64,13 @@ public class UI extends PApplet {
 
         // Processing
         public void settings() {
-                size(1920, 1080, P3D);
-                // fullScreen(P3D);
+                if (fullscreen) {
+                        fullScreen(P3D);
+                } else {
+                        size(1920, 1080, P3D);
+                }
                 smooth(8);
+
         }
 
         PShape ray;
@@ -67,12 +80,6 @@ public class UI extends PApplet {
                 // Load all shapes from csv file
                 elements = UIElementLoader.loadUI(this);
                 Matrix4f projectionMatrix = MousePicker.createProjectionMatrix();
-
-                // Fix alpha transparency for 3D objects
-                // hint(ENABLE_DEPTH_TEST);
-                // hint(ENABLE_DEPTH_SORT);
-                // hint(DISABLE_DEPTH_TEST);
-                // hint(DISABLE_DEPTH_SORT);
 
                 cam = new Camera(this);
                 animation = new Animation(this);
@@ -92,6 +99,10 @@ public class UI extends PApplet {
 
         // Main loop
         public void draw() {
+                for (CustomShape c : custom) {
+                        c.strokeState(false);
+                }
+
                 render3D(); // render room
                 render2D(); // render GUI
         }
