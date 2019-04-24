@@ -1,6 +1,6 @@
 package ie.tudublin;
 
-
+//Abstract class
 abstract public class UIElement {
         public UI ui;
         public String type;

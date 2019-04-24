@@ -9,13 +9,9 @@ import ie.tudublin.shapes.*;
 
 //java
 import java.util.ArrayList;
-import java.util.Scanner;
-
-import org.lwjgl.util.vector.Matrix4f;
 
 //processing
 import processing.core.PApplet;
-import processing.core.PGraphics;
 import processing.core.PShape;
 import processing.event.MouseEvent;
 
@@ -29,8 +25,8 @@ public class UI extends PApplet {
         // Utility vars
         Camera cam;
         Animation animation;
-        MousePicker cursor;
         boolean fullscreen = false;
+        PlanetMap map;
 
         // Input functions
         public void mouseWheel(MouseEvent event) {
@@ -57,7 +53,6 @@ public class UI extends PApplet {
 
         // Above array segregated into arrays containing specific shapes.
         public ArrayList<CustomShape> custom = new ArrayList<CustomShape>();
-        public ArrayList<Sphere> spheres = new ArrayList<Sphere>();
 
         // Planets generated from star information and sphere shapes.
         public ArrayList<Planet> planets = new ArrayList<Planet>();
@@ -70,39 +65,28 @@ public class UI extends PApplet {
                         size(1920, 1080, P3D);
                 }
                 smooth(8);
-
         }
 
         PShape ray;
-        PlanetMap map;
 
         public void setup() {
-                // Load all shapes from csv file
+                // Load all shapes and planets from csv file
                 elements = UIElementLoader.loadUI(this);
-                Matrix4f projectionMatrix = MousePicker.createProjectionMatrix();
 
+                //Initialise all variables
                 cam = new Camera(this);
                 animation = new Animation(this);
-                cursor = new MousePicker(this, cam, projectionMatrix);
                 map = new PlanetMap(this);
                 console = new Console(this);
 
-                ray = new PShape();
-                ray = createShape();
-                ray.beginShape(LINES);
-                ray.stroke(255);
-                ray.fill(255);
-                ray.vertex(width / 2, height / 2, 600);
-                ray.vertex(width / 2, height / 2, -1000);
-                ray.endShape(CLOSE);
+                // Remove strokes from the room
+                for (CustomShape c : custom) {
+                        c.strokeState(false);
+                }
         }
 
         // Main loop
         public void draw() {
-                for (CustomShape c : custom) {
-                        c.strokeState(false);
-                }
-
                 render3D(); // render room
                 render2D(); // render GUI
         }
@@ -111,8 +95,11 @@ public class UI extends PApplet {
                 pushMatrix();
 
                 hint(ENABLE_DEPTH_TEST);
+
+                // Update camera position
                 cam.moveEye(mouseX, mouseY, currentPos = lerp(currentPos, destinationPos, 0.1f));
 
+                // Clear last frame
                 background(0);
 
                 // General Lighting
@@ -122,12 +109,12 @@ public class UI extends PApplet {
                 lightFalloff(3f, 0.01f, 0.0f);
                 pointLight(255, 255, 255, width / 2, height / 2 + 350, -100);
 
+                // Render all items
                 String prev = "";
                 for (UIElement e : elements) {
                         // Render an active planet before hologram cones get rendered.
                         // To prevent overlapping
                         if (e.type.equals("CONE") && !prev.equals("CONE")) {
-
                                 map.update();
                                 map.render();
                                 lightFalloff(0f, 0f, 0f);
@@ -138,6 +125,7 @@ public class UI extends PApplet {
                                         }
                                 }
                         }
+
                         // Render cones (hologram illusion only if they are activated)
                         if (e.type.equals("CONE")) {
                                 if (console.holoIsActive) {
@@ -159,10 +147,10 @@ public class UI extends PApplet {
         public void render2D() {
                 pushMatrix();
                 hint(DISABLE_DEPTH_TEST);
+                // Enable lights so that the GUI is not affected by the 3D lights
                 lights();
                 console.update();
                 console.render();
                 popMatrix();
-
         }
 }

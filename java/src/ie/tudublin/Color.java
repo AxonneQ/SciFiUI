@@ -12,7 +12,7 @@ public class Color {
         public int b;
         public int a;
         private String rgbaPattern = "^([0-9]{3}\\s?){4}$"; // RGB Pattern 255 255 255 255 (R G B A)
-        private String rgbPattern = "^([0-9]{3}\\s?){3}$";  // RGB Pattern 255 255 255 (R G B)
+        private String rgbPattern = "^([0-9]{3}\\s?){3}$"; // RGB Pattern 255 255 255 (R G B)
         private String hexPattern = "^#[A-Fa-f0-9]{6,8}$"; // Hex Pattern #FFFFFFFF (R G B A)
         private String rawColorData;
 
@@ -25,16 +25,15 @@ public class Color {
                 }
         }
 
-        public Color(int ... vars){
+        public Color(int... vars) {
                 r = vars[0];
                 g = vars[1];
                 b = vars[2];
-                if (Array.getLength(vars) == 4){
+                if (Array.getLength(vars) == 4) {
                         a = vars[3];
                 } else {
                         a = 255;
                 }
-                
 
         }
 
@@ -48,7 +47,7 @@ public class Color {
                         } else {
                                 a = 255;
                         }
-                        
+
                 } else if (rawColor.matches(rgbaPattern) || rawColor.matches(rgbPattern)) {
                         r = Integer.parseInt(rawColor.substring(0, 3));
                         g = Integer.parseInt(rawColor.substring(4, 7));
@@ -67,14 +66,22 @@ public class Color {
         }
 
         private void checkRange() {
-                if(r > 255) r = 255;
-                if(g > 255) g = 255;
-                if(b > 255) b = 255;
-                if (a > 255) a = 255;
-                
-                if(r < 0) r = 0;
-                if(g < 0) g = 0;
-                if(b < 0) b = 0;
-                if(a < 0) a = 0;
+                if (r > 255)
+                        r = 255;
+                if (g > 255)
+                        g = 255;
+                if (b > 255)
+                        b = 255;
+                if (a > 255)
+                        a = 255;
+
+                if (r < 0)
+                        r = 0;
+                if (g < 0)
+                        g = 0;
+                if (b < 0)
+                        b = 0;
+                if (a < 0)
+                        a = 0;
         }
 }

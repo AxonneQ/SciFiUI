@@ -149,8 +149,7 @@ public class CustomShape extends UIElement {
                         }       
                         s.endContour();
                 }
-                s.endShape(CLOSE);
-                
+                s.endShape(CLOSE);      
         }
 
         public void strokeState(boolean b){
@@ -168,11 +167,4 @@ public class CustomShape extends UIElement {
         public void render() {
                 s.draw(ui.g);
         }
-
-
-
-
-               
-        
-
 }

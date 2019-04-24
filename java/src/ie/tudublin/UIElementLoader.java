@@ -59,7 +59,7 @@ public class UIElementLoader {
                                                 String shapeDescription = lineSegments[0].trim();
 
                                                 switch (shapeDescription) {
-                                                        
+
                                                 case "SPHERE":
                                                         UIElement sphere = new Sphere(ui, lineSegments);
                                                         elements.add(sphere);
@@ -95,13 +95,14 @@ public class UIElementLoader {
                                                         elements.add(planet);
                                                         System.out.println("Adding planet: " + lineSegments[1]);
                                                         break;
-                                                
+
                                                 case "LIGHT":
                                                         UIElement light = new Light(ui, lineSegments);
                                                         elements.add(light);
-                                                        System.out.println("Adding Light at pos (X:Y:Z): " + lineSegments[2]);
+                                                        System.out.println("Adding Light at pos (X:Y:Z): "
+                                                                        + lineSegments[2]);
                                                         break;
-                                                        
+
                                                 case "":
                                                         break;
 

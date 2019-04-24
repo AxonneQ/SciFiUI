@@ -30,8 +30,8 @@ public class Orbit extends UIElement {
                 this.base = position;
                 this.radius = moonRadius;
                 this.orbitAngle = orbitAngle;
-                this.stroke = new Color(255,255,255,30);
-                
+                this.stroke = new Color(255, 255, 255, 30);
+
                 float angle = 0;
                 vertices = new PVector[resolution];
                 for (int i = 0; i < resolution; i++) {
@@ -83,17 +83,17 @@ public class Orbit extends UIElement {
                 orbit.noFill();
                 for (PVector v : vertices) {
                         orbit.vertex(v.x, v.y, v.z);
-                        
+
                 }
                 orbit.endShape(CLOSE);
 
         }
 
-        public PVector getVert(int i){
+        public PVector getVert(int i) {
                 return vertices[i];
         }
 
-        public PVector[] getVerts(){
+        public PVector[] getVerts() {
                 return vertices;
         }
 
@@ -102,14 +102,14 @@ public class Orbit extends UIElement {
         }
 
         public void render() {
-         
+
                 ui.pushMatrix();
                 ui.translate(base.x, base.y, base.z);
-                ui.rotateZ((float)Math.toRadians(orbitAngle));
-                ui.rotateX(-(float)Math.toRadians(orbitAngle));
+                ui.rotateZ((float) Math.toRadians(orbitAngle));
+                ui.rotateX(-(float) Math.toRadians(orbitAngle));
 
                 ui.shape(orbit);
                 ui.popMatrix();
-              
+
         }
 }

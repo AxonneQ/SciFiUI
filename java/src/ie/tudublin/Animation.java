@@ -8,11 +8,15 @@ import java.util.Map;
 
 public class Animation {
         private static UI ui;
+
         public Animation(UI ui) {
                 Animation.ui = ui;
         }
 
-        public static Map<String, Integer> animations = Map.of("ROTATE", 1, "PULSE", 2);
+        public static Map<String, Integer> animations = Map.of(
+                "ROTATE", 1, 
+                "PULSE", 2
+        );
 
         public static void getAnimation(String aniName, float... vars) throws NoSuchAnimationException {
                 int aniNumber = animations.get(aniName);
@@ -22,7 +26,7 @@ public class Animation {
                         rotate(vars);
                         break;
 
-                case 2:
+                case 2: //Never implemented, was supposed to fade in / out color alpha
                         pulse(vars);
                         break;
 
@@ -33,13 +37,11 @@ public class Animation {
         }
 
         static private void rotate(float[] angle) {
-                        ui.rotateY(angle[0] += angle[1]);
+                ui.rotateY(angle[0] += angle[1]);
         }
 
         static private void pulse(float[] vars) {
-                // float speed = vars[0];
-                // if()
-
+           
         }
 
 }

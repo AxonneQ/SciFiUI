@@ -34,9 +34,6 @@ public class Light extends UIElement {
                 ui.translate(ui.width/2, ui.height/2);
                 ui.lightFalloff(intensity, 0.0f ,0.0f);
                 ui.pointLight(color.r, color.g, color.b, position.x, position.y, position.z);
-                //ui.directionalLight(color.r, color.g, color.b, 0, 0, -1);
-                //ui.spotLight(color.r, color.g, color.b, position.x, position.y, position.z, 0, 0, -1, 40, 1000);
-
                 ui.popMatrix();
         }
 }
