@@ -10,6 +10,16 @@ We were asked to create a Sci-Fi interface with a variety of animations and effe
 My idea was to create a spaceship dashboard that would display all nearby planets on semi-transparent screen where a planet can be selected for further inspection. There is also a second screen showing information of currently selected planet, and a hologram displaying that planet with its moons and orbit. I wanted to experiment with lighting, rotation and creation of custom shapes. Ultimately, this allowed me to create an effect impossible to achieve in 2D renderer.
 
 # Instructions
+## Video demonstrating functionality:
+[![YouTube](https://img.youtube.com/vi/VB5xHbBoAfs/0.jpg)](https://youtu.be/VB5xHbBoAfs)
+
+All interaction is done in the controls console on the bottom of the screen.
+1. System must first be turned on.
+2. Scan must be performed before planets can be shown
+3. Hologram projection can be turned on/off after scan.
+4. Once Hologram projection is running, user can cycle through planets which display information about them on the right screen.
+5. Zooming is possible with either mouseWheel or clicking the Zoom button.
+
 
 # How it works
 
