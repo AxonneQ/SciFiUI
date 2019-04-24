@@ -11,6 +11,7 @@ public class Console {
         public boolean holoIsActive;
         public boolean isScanned;
         public boolean isPowered;
+        public boolean isZoomed;
 
         private float width;
         private float height;
@@ -25,6 +26,7 @@ public class Console {
         // Button colors
         private static final String RED = "#c61801ff";
         private static final String GREEN = "#13af15ff";
+        private static final String INACTIVE = "#c6180144";
 
         Color holoCol;
         Color scanCol;
@@ -46,10 +48,10 @@ public class Console {
                 controls = ui.createGraphics(ui.width, ui.height);
                 timer = ui.millis();
                 scanTimer = 0;
-                holoCol = new Color("#c61801ff");
-                scanCol = new Color("#c61801ff");
-                nextPlanetCol = new Color("#c61801ff");
-                prevPlanetCol = new Color("#c61801ff");
+                holoCol = new Color("#c6180144");
+                scanCol = new Color("#c6180144");
+                nextPlanetCol = new Color("#c6180144");
+                prevPlanetCol = new Color("#c6180144");
                 zoomCol = new Color("#c61801ff");
                 powerCol = new Color("#c61801ff");
 
@@ -77,6 +79,7 @@ public class Console {
         }
 
         public void update() {
+                ui.textAlign(ui.LEFT);
                 setRelativeMousePos();
                 ui.pushMatrix();
                 ui.translate(ui.width / 2, ui.height / 2);
@@ -89,6 +92,9 @@ public class Console {
                 powerStateButton();
                 scanButton();
                 holoStateButton();
+                nextPlanet();
+                prevPlanet();
+                zoom();
 
                 controls.endDraw();
 
@@ -123,13 +129,13 @@ public class Console {
                                         holoIsActive = false;
                                         ui.planets.get(ui.map.currentPlanet).isActive = false;
                                         
-                                        holoCol = new Color(RED);
-                                        scanCol = new Color(RED);
+                                        holoCol = new Color(INACTIVE);
+                                        scanCol = new Color(INACTIVE);
 
                                        
                                 } else {
                                         powerCol = new Color(GREEN);
-                                        scanCol = new Color(GREEN);
+                                        scanCol = new Color(RED);
                                         isPowered = true;
                                         ui.map.currentPlanet = 0;
                                 }
@@ -146,45 +152,131 @@ public class Console {
         }
 
         private void holoStateButton() {
-                PVector start = new PVector(-50, halfH - 50);
-                PVector dim = new PVector(50, 30);
-                PVector end = new PVector(start.x + dim.x, start.y + dim.y);
+                PVector start = new PVector(-160, halfH-35);
+                PVector dim = new PVector(30, 30);
+                PVector end = new PVector(start.x + dim.x/2, start.y + dim.y/2);
 
                 ui.pushMatrix();
                 if (ui.millis() - timer >= 300 && isPowered) {
-                        if (relMouse.x > start.x && relMouse.x < end.x && relMouse.y > start.y && relMouse.y < end.y
+                        if (relMouse.x > start.x-dim.x/2 && relMouse.x < end.x && relMouse.y > start.y-dim.y/2 && relMouse.y < end.y
                                         && ui.mousePressed && isScanned) {
                                 if (holoIsActive) {
-                                        holoCol = new Color("#c61801ff");
+                                        holoCol = new Color(RED);
+                                        zoomCol = new Color(INACTIVE);
                                         ui.planets.get(ui.map.currentPlanet).isActive = false;
                                         holoIsActive = false;
                                 } else {
-                                        holoCol = new Color("#13af15ff");
+                                        holoCol = new Color(GREEN);
+                                        zoomCol = new Color(RED);
                                         ui.planets.get(ui.map.currentPlanet).isActive = true;
                                         holoIsActive = true;
                                 }
                                 timer = ui.millis();
+                        } else if(isScanned && !holoIsActive){
+                                holoCol = new Color(RED);
                         }
+                } else {
+                        
                 }
                 ui.translate(start.x, start.y -5);
                 ui.scale(0.2f);
                 ui.fill(255,0,0,255);
-                ui.text("SHOW", 0, 0);
+                ui.text("HOLOGRAM", 120, 60);
                 ui.popMatrix();
                 controls.fill(holoCol.r, holoCol.g, holoCol.b, holoCol.a);
-                controls.rect(start.x, start.y, dim.x, dim.y);
+                controls.ellipse(start.x, start.y, dim.x, dim.y);
         }
 
         private void nextPlanet() {
-                PVector start = new PVector(0, 300);
-                PVector dim = new PVector(50, 30);
-                PVector end = new PVector(start.x + dim.x, start.y + dim.y);
+                PVector start = new PVector(130, halfH-115);
+                PVector dim = new PVector(30, 30);
+                PVector end = new PVector(start.x + dim.x/2, start.y + dim.y/2);
 
-                controls.rect(start.x, start.y, dim.x, dim.y);
+                ui.pushMatrix();
+                
+                if (isScanned && isPowered && holoIsActive) {
+                        nextPlanetCol = new Color("#13af15ff");
+                        if (relMouse.x > start.x-dim.x/2 && relMouse.x < end.x && relMouse.y > start.y-dim.y/2 && relMouse.y < end.y
+                                        && ui.mousePressed) {
+                                if(ui.millis() - timer >= 300){
+                                        ui.map.next();
+                                        timer = ui.millis();
+                                }
+                        }
+                } else {
+                        nextPlanetCol = new Color("#c6180144");
+                }
+                ui.translate(start.x, start.y -5);
+                ui.scale(0.2f);
+                ui.fill(255,0,0,255);
+                ui.text("->", 120, 60);
+                ui.popMatrix();
+                controls.fill(nextPlanetCol.r, nextPlanetCol.g, nextPlanetCol.b, nextPlanetCol.a);
+                controls.ellipse(start.x, start.y, dim.x, dim.y);
         }
 
         private void prevPlanet() {
+                PVector start = new PVector(80, halfH-115);
+                PVector dim = new PVector(30, 30);
+                PVector end = new PVector(start.x + dim.x/2, start.y + dim.y/2);
 
+                ui.pushMatrix();
+                
+                if (isScanned && isPowered && holoIsActive) {
+                        prevPlanetCol = new Color("#13af15ff");
+                        if (relMouse.x > start.x-dim.x/2 && relMouse.x < end.x && relMouse.y > start.y-dim.y/2 && relMouse.y < end.y
+                                        && ui.mousePressed) {
+                                if(ui.millis() - timer >= 300){
+                                        ui.map.prev();
+                                        timer = ui.millis();
+                                }
+                        }
+                } else {
+                        prevPlanetCol = new Color("#c6180144");
+                }
+                ui.translate(start.x, start.y -5);
+                ui.scale(0.2f);
+                ui.fill(255,0,0,255);
+                ui.text("<-", -200, 60);
+                ui.popMatrix();
+                controls.fill(prevPlanetCol.r, prevPlanetCol.g, prevPlanetCol.b, prevPlanetCol.a);
+                controls.ellipse(start.x, start.y, dim.x, dim.y);
+        }
+
+        private void zoom(){
+                PVector start = new PVector(160, halfH-35);
+                PVector dim = new PVector(30, 30);
+                PVector end = new PVector(start.x + dim.x/2, start.y + dim.y/2);
+
+                ui.pushMatrix();
+
+                if (holoIsActive) {
+                        if (relMouse.x > start.x-dim.x/2 && relMouse.x < end.x && relMouse.y > start.y-dim.y/2 && relMouse.y < end.y
+                                        && ui.mousePressed) {
+                                if(ui.millis() - timer >= 300){
+                                        if(isZoomed) {
+                                                ui.destinationPos = 10;
+                                                zoomCol = new Color(RED);
+                                                isZoomed = false;
+                                        } else {
+                                                ui.destinationPos = -20;
+                                                zoomCol = new Color(GREEN);
+                                                isZoomed = true;
+                                        }
+                                        timer = ui.millis();
+                                       
+                                }
+                        }
+                } else {
+                        zoomCol = new Color(INACTIVE);
+                }
+                ui.translate(start.x, start.y -5);
+                ui.scale(0.2f);
+                ui.fill(255,0,0,255);
+                ui.text("ZOOM", -400, 60);
+                ui.popMatrix();
+                controls.fill(zoomCol.r, zoomCol.g, zoomCol.b, zoomCol.a);
+                controls.ellipse(start.x, start.y, dim.x, dim.y);
         }
 
         private void scanButton() {
@@ -199,11 +291,12 @@ public class Console {
                                         && ui.mousePressed) {
                                 scanTimer = ui.millis();
                                 ui.map.isScanning = true;
-                                scanCol = new Color("#c61801ff");
-                        }
+                                scanCol = new Color(GREEN);
+                        } 
                         if(ui.millis() - scanTimer > 3000 && ui.map.isScanning){
                                 isScanned = true;
                                 ui.map.isScanning = false;
+                                scanCol = new Color(INACTIVE);
                         }
                 }
                 ui.translate(start.x, start.y -5);

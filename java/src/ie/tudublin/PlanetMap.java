@@ -45,27 +45,21 @@ public class PlanetMap extends UIElement {
                 info = ui.planets.get(i).info;
         }
 
-        public void keyPress(int key){
-                if(ui.console.isScanned){
-                        if(key == 'C'){
-                                ui.console.holoIsActive = true;
-                                ui.planets.get(currentPlanet).isActive = false;
-                                currentPlanet = (currentPlanet + 1) % ui.planets.size();
-                                ui.planets.get(currentPlanet).isActive = true;
-                                info = ui.planets.get(currentPlanet).info;                      
-                        }
-                        if(key == 'V'){
-                                ui.console.holoIsActive = true;
-                                ui.planets.get(currentPlanet).isActive = false;
-                                currentPlanet = currentPlanet - 1;
-                                if(currentPlanet < 0){
-                                        currentPlanet = ui.planets.size() - 1;
-                                }
-                                ui.planets.get(currentPlanet).isActive = true;
-                                info = ui.planets.get(currentPlanet).info;                      
-                        }
+        public void next(){
+                ui.planets.get(currentPlanet).isActive = false;
+                currentPlanet = (currentPlanet + 1) % ui.planets.size();
+                ui.planets.get(currentPlanet).isActive = true;
+                info = ui.planets.get(currentPlanet).info;                      
+        }
+
+        public void prev(){
+                ui.planets.get(currentPlanet).isActive = false;
+                currentPlanet = currentPlanet - 1;
+                if(currentPlanet < 0){
+                        currentPlanet = ui.planets.size() - 1;
                 }
-               
+                ui.planets.get(currentPlanet).isActive = true;
+                info = ui.planets.get(currentPlanet).info;                      
         }
 
         public void update() {
@@ -153,6 +147,7 @@ public class PlanetMap extends UIElement {
 
                 ui.lights();
                 if(ui.console.isScanned && ui.console.holoIsActive){
+                        ui.textAlign(ui.LEFT);
                         ui.translate(0, 0, 5);
                         /*ui.lightFalloff(1f, 0, 0);
                         ui.pointLight(255,0,0,250,200,100);*/
@@ -168,10 +163,24 @@ public class PlanetMap extends UIElement {
                                 gap += lineSpacing;
                         }
                 } else if (isScanning) {
+                        ui.textAlign(ui.CENTER);
                         ui.translate(0, 0, 5);
                         ui.fill(255, 0, 0, 255);
                         ui.scale(0.5f);
-                        ui.text("Scanning...", 250, 400);
+                        ui.text("Scanning...", 500, 400);
+                } else if (ui.console.isPowered && !ui.console.isScanned){
+                        ui.textAlign(ui.CENTER);
+                        ui.translate(0, 0, 5);
+                        ui.fill(255, 0, 0, 255);
+                        ui.scale(0.5f);
+                        ui.text("System Ready...", 500, 400);
+                        ui.text("Initialize scan...", 500, 500);
+                } else if (ui.console.isPowered && ui.console.isScanned) {
+                        ui.textAlign(ui.CENTER);
+                        ui.translate(0, 0, 5);
+                        ui.fill(255, 0, 0, 255);
+                        ui.scale(0.5f);
+                        ui.text("Scanning \nComplete.", 500, 400);
                 }
                
 

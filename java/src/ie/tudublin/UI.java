@@ -31,29 +31,16 @@ public class UI extends PApplet {
         MousePicker cursor;
 
         // Input functions
-        public void keyPressed() {
-                keys[keyCode] = true;
-                map.keyPress(keyCode);
-        }
-
-        public void keyReleased() {
-                keys[keyCode] = false;
-        }
-
-        public boolean checkKey(int c) {
-                return keys[c] || keys[Character.toUpperCase(c)];
-        }
-
         public void mouseWheel(MouseEvent event) {
                 destinationPos = currentPos + event.getCount() * 5;
-                /*
-                 * if (destinationPos > 10) { destinationPos = 10; } if (destinationPos < -20) {
-                 * destinationPos = -20; }
-                 */
-        }
 
-        public void mousePressed() {
-              
+                if (destinationPos > 10) {
+                        destinationPos = 10;
+                }
+                if (destinationPos < -20) {
+                        destinationPos = -20;
+                }
+
         }
 
         // Storing ALL Elements (Custom, spheres, radars etc..)
@@ -69,7 +56,7 @@ public class UI extends PApplet {
         // Processing
         public void settings() {
                 size(1920, 1080, P3D);
-                //fullScreen(P3D);
+                // fullScreen(P3D);
                 smooth(8);
         }
 
@@ -117,7 +104,7 @@ public class UI extends PApplet {
 
                 background(0);
 
-                //General Lighting
+                // General Lighting
                 lightFalloff(5f, 0.00f, 0.0f);
                 ambientLight(0, 124, 204);
                 specular(0, 124, 224);
