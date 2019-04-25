@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 //processing
 import processing.core.PApplet;
-import processing.core.PShape;
 import processing.event.MouseEvent;
 
 public class UI extends PApplet {
@@ -25,7 +24,7 @@ public class UI extends PApplet {
         // Utility vars
         Camera cam;
         Animation animation;
-        boolean fullscreen = false;
+        boolean fullscreen = true;              //<--- Change here for fullscreen/windowed mode
         PlanetMap map;
 
         // Input functions
@@ -66,8 +65,6 @@ public class UI extends PApplet {
                 }
                 smooth(8);
         }
-
-        PShape ray;
 
         public void setup() {
                 // Load all shapes and planets from csv file

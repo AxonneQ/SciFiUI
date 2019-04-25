@@ -8,7 +8,6 @@ abstract public class UIElement {
         public UIElement(UI ui, String type) {
                 this.ui = ui;
                 this.type = type;
-                ui.elements.add(this);
         }
 
         abstract public void update();
