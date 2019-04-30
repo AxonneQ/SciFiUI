@@ -22,7 +22,7 @@ All interaction is done in the controls console on the bottom of the screen.
 
 
 # How it works
-All the shapes (apart from 2 displays) are loaded from Shape.csv file. All the planets, and information about them are loaded from Stars.csv file. The files are read into the program using a custom file loader I created allowing different shapes to have different parameters. All lines starting with a hash (#), double quotes ("") are ignored allowing for comments within the file.
+All shapes (apart from 2 displays) are loaded from Shape.csv file (This includes the entire room, table, lights, hologram). All planets, and information about them are loaded from Stars.csv file. The files are read into the program using a custom file loader I created allowing different shapes to have different parameters. All lines starting with a hash (#), double quotes ("") are ignored allowing for comments within the file.
 Using Processing's Table class to read the file would not allow for this. Creating my own file parser was a challenge because I had to deal with BOM (Byte Order Mark) which I discuss later in the Challenges section. 
 
 Both shapes and planets are implementation of **UIElement** ***abstract*** class. 
@@ -93,8 +93,7 @@ I encountered many problems during this assignment. Here are the main problems I
 
         // Check if byte array contains Byte Order Mark
         if ((lineBytes[0] & 0xFF) == 0xEF && (lineBytes[1] & 0xFF) == 0xBB && (lineBytes[2] & 0xFF) == 0xBF) {
-                // if yes, create new byte array, copy all bytes excluding first 3 and convert
-                // back to String
+                // if yes, create new byte array, copy all bytes excluding first 3 and convert back to String using ISO-8859-1 encoding
                 byte[] lineBytesNoBOM = new byte[lineBytes.length - 3];
                 System.arraycopy(lineBytes, 3, lineBytesNoBOM, 0, lineBytesNoBOM.length);
                 String temp = new String(lineBytesNoBOM, "ISO-8859-1"); // 8-bit ASCII
@@ -108,6 +107,6 @@ I encountered many problems during this assignment. Here are the main problems I
 - **Mouse Picking**. Originally I wanted to create a 3D interaction using ray casting to select planets, rotate them, etc. I ended up wasting days trying to figure out how to implement it and even downloaded specific libraries from the Lightweight Java Game Library (LWJGL) that deal with matrix translations, inversions and other calculations. I followed a tutorial that showed the implementation in another engine, however, I did not fully understand those calculations and ended up deleting all related code and libraries. Instead I decided to create a little 2D console that would contain all the interaction buttons to control the system. 
 
 # What I am most proud of in the assignment
-I am most proud of the fact that I was able to overcome almost all challenges which made me learn fundamentals of 3D renderers. I am now more interested to create my own project utilising popular 3D engines such as making a mobile game with Unity/Unreal, while still developing my 2D tile-based game in C++ using SDL libraries. I might switch to Heaps.io engine based on Haxe language. It would allow me to use both 2D and 3D with more ease than writing everything in C++ from scratch.
+I am most proud of the fact that I was able to overcome almost all challenges which made me learn fundamentals of 3D renderers. I am now more interested to create my own project utilising popular 3D engines such as making a mobile game with Unity/Unreal, while still developing my 2D tile-based game in C++ using SDL libraries. I might switch to [Heaps](https://heaps.io/) engine based on [Haxe](https://haxe.org/) language. It would allow me to use both 2D and 3D with more ease than writing everything in C++ from scratch.
 
-Overall, I had great fun creating this project. Unfortunately, we had 2 more assignments from other modules going on at the same time so I couldn't spend more time with researching and understanding Mouse Picking techniques and learning matrix calculations as well as adding more content.
+Overall, I had great fun creating this project. Unfortunately, we had 2 more assignments from other modules going on at the same time so I couldn't spend more time with researching and understanding Mouse Picking techniques and learning matrix calculations as well as adding more content and interaction.
